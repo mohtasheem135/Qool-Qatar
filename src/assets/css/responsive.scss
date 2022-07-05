@@ -1,0 +1,201 @@
+@media (max-width: 480px){
+    .experience-world .txt-box {
+        width: auto;
+    }
+    .bottom-footer .copyright {
+        flex-direction: column;
+        text-align: center;
+    }
+    .bottom-footer .copyright p {
+        margin-right: 0;
+        order: 1;
+    }
+    .bottom-footer li a {
+        margin-right: 0;
+    }
+    footer img {
+        display: block;
+        margin: 0 auto 30px;
+    }
+    .bottom-footer ul {
+        flex-direction: column;
+        margin-bottom: 66px;
+    }
+    .bottom-footer form {
+        flex-direction: column;
+        margin-bottom: 54px;
+    }
+    .bottom-footer form select {
+        width: 100%;
+    }
+    .bottom-footer .col-lg-8{
+        order: 1;
+    }
+    footer {
+        padding: 60px;
+    }
+    .top-picks .slick-prev, .experience-place .slick-prev {
+        display: none !important;
+    }
+    .top-picks .slick-next {
+        top: -19% !important;
+    }
+    .get-offer {
+        padding: 50px;
+    }
+    .pick-box img {
+        width: 100%;
+    }
+    .destination-info .col-lg-4 {
+        width: 100%;
+    }
+    .destination-info .col-lg-8 {
+        width: 100%;
+    }
+    .pick-right {
+        padding-left: 0;
+    }
+    .pick-right img{
+        width: 100%;
+    }
+    .place-box {
+        flex-direction: column;
+    }
+    .place-box img.place-img {
+        width: 100%;
+    }
+    .profile-tabs .tab-content {
+        padding-left: 0;
+    }
+    .del-box {
+        margin-left: 0;
+    }
+    .edit-profile img.user {
+        margin-right: 0;
+        width: 55px;
+    }
+    .edit-profile .btn {
+        padding: 15px !important;
+    }
+    .my-wishlist .red-heart {
+        right: 46%;
+    }
+    .booking-box {
+        flex-direction: column;
+    }
+    .booking-box .booking-info {
+        padding-left: 0;
+    }
+    .currency-box select {
+        width: 100%;
+    }
+    .pac-img{
+        width: 100%;
+    }
+    .my-reviews .review-box:first-child {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+    .reviews-box .review-box {
+        margin-left: 0;
+        margin-top: 30px;
+    }
+    .reviews-box .multi-imgs img {
+        width: 106px;
+    }
+    .my-star img{
+        width: auto;
+    }
+    .booking-form {
+        padding-left: 0;
+    }
+    .checkblock1 .booking-img {
+        width: 100%;
+    }
+    .booking-form .payment-btn {
+        width: 100%;
+    }
+    .review-form {
+        padding-left: 0;
+        padding-top: 30px;
+    }
+    .review-form .review-btn {
+        width: 100%;
+    }
+    .deal-box {
+        display: flex !important;
+    }
+    .deal-box img{
+        width: 90%;
+    }
+    .deal-picks .slick-slide {
+        padding-right: 5px;
+    }
+    .deal-box .like-box {
+        display: none;
+    }
+    .deal-box .deal-sub{
+        width: 175%;
+    }
+    .header-menu {
+        padding: 20px !important;
+    }
+    .stepper-sub{
+        flex-direction: column;
+    }
+    .stepper-wrapper .stepper-head.vertical-stepper-head + .stepper-body {
+        margin-inline-start: 0rem;
+    }
+    .stepper-wrapper .stepper-body {
+        border-left: 0px solid #dedede !important;
+        padding-left: 0px;
+    }
+    .package-block {
+        flex-direction: column;
+    }
+    .package-sub{
+        margin-bottom: 20px;
+    }
+    .package-sub img{
+        width: 50%;
+    }
+    .select-tab .form-check-label {
+        width: 265px;
+        margin-left: 15px;
+    }
+}
+
+@media (min-width:991px){
+    .search-mob{
+        display: none;
+    }
+}
+
+@media (max-width:991px){
+    .navbar-brand {
+        order: 1;
+    }
+    .search-mob{
+        order: 2;
+    }
+    .navbar-brand {
+        margin-right: 8rem;
+    }
+    .navbar-light .navbar-toggler {
+        border-width: 0;
+    }
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0rem !important;
+    }
+    .search-form {
+        display: none;
+    }
+    .crown-box {
+        width: fit-content;
+        margin-top: 16px;
+    }
+    .meta-icon {
+        width: fit-content;
+        margin-top: 16px;
+    }
+}
