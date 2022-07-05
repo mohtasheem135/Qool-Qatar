@@ -1,4 +1,6 @@
 import React from 'react';
+import { getHomeData } from '../api_utils';
+import { useQuery } from 'react-query';
 const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
 const ExperienceWorld = React.lazy(()=> import('../components/home/experience'));
 const LetExplore = React.lazy(()=> import('../components/home/let-explore'));
@@ -9,7 +11,7 @@ const LuxuryPicks = React.lazy(()=> import('../components/home/luxury-picks'));
 const UpcomingEvents = React.lazy(()=> import('../components/home/upcoming-events'));
 
 const Home = () =>{
-
+    const {data, isLoading, isError, isSuccess} = useQuery('homeData', getHomeData);
     return(
         <MainPage>
             <ExperienceWorld />
