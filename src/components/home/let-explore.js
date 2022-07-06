@@ -1,47 +1,53 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
+import { getHomeData } from '../../api_utils';
+import { useQuery } from 'react-query';
 
-const data = [
-	{
-		id: 1,
-		image: require('../../assets/images/Rectangle21750.png'),
-		title: "Sightseeing",
-		meta: "28 Activites"
-	},
-	{
-		id: 2,
-		image: require('../../assets/images/Rectangle21751.png'),
-		title: "Spa & Wellness",
-		meta: "28 Activites"
-	},
-	{
-		id: 3,
-		image: require('../../assets/images/Rectangle21752.png'),
-		title: "Museum of Islamic Art",
-		meta: "28 Activites"
-	},
-    {
-		id: 4,
-		image: require('../../assets/images/Rectangle21750.png'),
-		title: "Sightseeing",
-		meta: "28 Activites"
-	},
-]
+// const data = [
+// 	{
+// 		id: 1,
+// 		image: require('../../assets/images/Rectangle21750.png'),
+// 		title: "Sightseeing",
+// 		meta: "28 Activites"
+// 	},
+// 	{
+// 		id: 2,
+// 		image: require('../../assets/images/Rectangle21751.png'),
+// 		title: "Spa & Wellness",
+// 		meta: "28 Activites"
+// 	},
+// 	{
+// 		id: 3,
+// 		image: require('../../assets/images/Rectangle21752.png'),
+// 		title: "Museum of Islamic Art",
+// 		meta: "28 Activites"
+// 	},
+//     {
+// 		id: 4,
+// 		image: require('../../assets/images/Rectangle21750.png'),
+// 		title: "Sightseeing",
+// 		meta: "28 Activites"
+// 	},
+// ]
 
-const picks = data.map((pick, index) => {
-    return(
-        <div className="pick-box">
-            <a href="/">
-                <img src={pick.image} key={index} alt="pick" />
-            </a>
-            <p key={index} className="pick-title">{pick.title}</p>
-            <p key={index} className="pick-des">{pick.meta}</p>
-        </div>
-    )
-})
+// const picks = data.map((pick, index) => {
+    // return(
+    //     <div className="pick-box">
+    //         <a href="/">
+    //             <img src={pick.image} key={index} alt="pick" />
+    //         </a>
+    //         <p key={index} className="pick-title">{pick.title}</p>
+    //         <p key={index} className="pick-des">{pick.meta}</p>
+    //     </div>
+    // )
+// })
 
 const LetExplore = () => {
+
+    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
+
+    
     var settings = {
         dots: false,
         lazyLoad: 'progressive',
@@ -73,7 +79,18 @@ const LetExplore = () => {
                 <Row className="bottom-line">
                     <Col>
                         <Slider {...settings}>
-                            {picks}
+                            {/* {picks} */}
+                            {isSuccess == true ? data.categories.map((e) => {
+                                 return(
+                                    <div className="pick-box">
+                                        <a href="/">
+                                            <img src={e.categories_img} alt="pick" />
+                                        </a>
+                                        <p className="pick-title">{e.categories_name}</p>
+                                        <p className="pick-des">kk</p>
+                                    </div>
+                                )
+                            }) : null}
                         </Slider>
                     </Col>
                 </Row>

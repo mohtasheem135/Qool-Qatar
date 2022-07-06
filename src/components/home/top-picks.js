@@ -1,71 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
-import img from "../../assets/images/Rectangle14.png"
+import { getHomeData } from '../../api_utils';
+import { useQuery } from 'react-query';
+
+
+// const dataa = [
+//     {
+//         id: 1,
+//         image: require('../../assets/images/Rectangle11.png'),
+//         title: "Mohtasheem Ejaz",
+//         // title: "Sauq Waqif",
+//         meta: "Doha, Qatar"
+//     },
+//     {
+//         id: 2,
+//         image: require('../../assets/images/Rectangle12.png'),
+//         title: "Katara Cultural Village",
+//         meta: "Doha, Qatar"
+//     },
+//     {
+//         id: 3,
+//         image: require('../../assets/images/Rectangle13.png'),
+//         title: "Museum of Islamic Art",
+//         meta: "Doha, Qatar"
+//     },
+//     {
+//         id: 4,
+//         image: require('../../assets/images/Rectangle14.png'),
+//         title: "National Museum of Qatar",
+//         meta: "Doha, Qatar"
+//     },
+//     {
+//         id: 5,
+//         image: require('../../assets/images/Rectangle11.png'),
+//         title: "Sauq Waqif",
+//         meta: "Doha, Qatar"
+//     },
+// ]
 
 
 
-const data = [
-    {
-        id: 1,
-        image: require('../../assets/images/Rectangle11.png'),
-        title: "Mohtasheem Ejaz",
-        // title: "Sauq Waqif",
-        meta: "Doha, Qatar"
-    },
-    {
-        id: 2,
-        image: require('../../assets/images/Rectangle12.png'),
-        title: "Katara Cultural Village",
-        meta: "Doha, Qatar"
-    },
-    {
-        id: 3,
-        image: require('../../assets/images/Rectangle13.png'),
-        title: "Museum of Islamic Art",
-        meta: "Doha, Qatar"
-    },
-    {
-        id: 4,
-        image: require('../../assets/images/Rectangle14.png'),
-        title: "National Museum of Qatar",
-        meta: "Doha, Qatar"
-    },
-    {
-        id: 5,
-        image: require('../../assets/images/Rectangle11.png'),
-        title: "Sauq Waqif",
-        meta: "Doha, Qatar"
-    },
-]
+// const picks = dataa.map(p => {
 
 
-
-const picks = data.map(p => {
-
-
-    return (
-        <div className="pick-box">
-            <a href="/">
-                <img src={p.image} alt="pick" />
-            </a>
-            <p className="pick-title">{p.title}</p>
-            <p className="pick-des">jjjj{p.meta}</p>
-        </div>
-    )
-})
+//     return (
+//         <div className="pick-box">
+//             <a href="/">
+//                 <img src={p.image} alt="pick" />
+//             </a>
+//             <p className="pick-title">{p.title}</p>
+//             <p className="pick-des">jjjj{p.meta}</p>
+//         </div>
+//     )
+// })
 
 
 const TopPicks = () => {
 
-    // const [topPicks, setTopPicks] = useState({})
-
-    // useEffect(() => {
-    //     fetch(`https://qoolqatar.com/qool_qatar/api/homedata`)
-    //         .then((response) => response.json())
-    //         // .then((data) => setTopPicks(data.luxury_picks));
-    //         .then((data) => setTopPicks(data.top_picks));
-    // }, [])
+    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
 
     var settings = {
         dots: false,
@@ -98,20 +91,19 @@ const TopPicks = () => {
                 <Row className="bottom-line">
                     <Col lg={12}>
                         <Slider {...settings}>
-                            {picks}
-                            {/* {Object.keys(topPicks).map((id, index) => {
+                            {/* {picks} */}
+                            {isSuccess == true ? data.top_picks.map((e) => {
                                 return (
-                                    
                                     <div className="pick-box">
                                         <a href="/">
-                                    <img key={index} src={img} alt="pick" />
+                                            <img src={e.Profilepic} alt="pick" />
                                         </a>
-                                        <p className="pick-title">{topPicks[id].BusinessName}</p>
-                                        <p className="pick-des">{topPicks[id].location}</p>
-                                        <hr/>
+                                        <p className="pick-title">{e.BusinessName}</p>
+                                        <p className="pick-des">{e.Name}</p>
+                                        <hr />
                                     </div>
                                 )
-                            })} */}
+                            }) : null}
                         </Slider>
                     </Col>
                 </Row>

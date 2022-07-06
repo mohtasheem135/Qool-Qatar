@@ -3,62 +3,57 @@ import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
-import img from "../../assets/images/a1.png"
+import { getHomeData } from '../../api_utils';
+import { useQuery } from 'react-query';
 
-const data = [
-	{
-		id: 1,
-		image: require('../../assets/images/a1.png'),
-		title: "Luxury Activity Name"
-	},
-	{
-		id: 2,
-		image: require('../../assets/images/a2.png'),
-		title: "Luxury Activity Name"
-	},
-	{
-		id: 3,
-		image: require('../../assets/images/a3.png'),
-		title: "Luxury Activity Name"
-	},
-    {
-		id: 4,
-		image: require('../../assets/images/a4.png'),
-		title: "Luxury Activity Name"
-	},
-    {
-		id: 5,
-		image: require('../../assets/images/a5.png'),
-		title: "Luxury Activity Name"
-	},
-    {
-		id: 6,
-		image: require('../../assets/images/a1.png'),
-		title: "Luxury Activity Name"
-	},
-]
+// const data = [
+// 	{
+// 		id: 1,
+// 		image: require('../../assets/images/a1.png'),
+// 		title: "Luxury Activity Name"
+// 	},
+// 	{
+// 		id: 2,
+// 		image: require('../../assets/images/a2.png'),
+// 		title: "Luxury Activity Name"
+// 	},
+// 	{
+// 		id: 3,
+// 		image: require('../../assets/images/a3.png'),
+// 		title: "Luxury Activity Name"
+// 	},
+//     {
+// 		id: 4,
+// 		image: require('../../assets/images/a4.png'),
+// 		title: "Luxury Activity Name"
+// 	},
+//     {
+// 		id: 5,
+// 		image: require('../../assets/images/a5.png'),
+// 		title: "Luxury Activity Name"
+// 	},
+//     {
+// 		id: 6,
+// 		image: require('../../assets/images/a1.png'),
+// 		title: "Luxury Activity Name"
+// 	},
+// ]
 
-const luxury = data.map(l => {
-    return(
-        <div className="pick-box">
-            <a href="/">
-                <img src={l.image} alt="pick" />
-            </a>
-            <p className="pick-title">{l.title}</p>
-        </div>
-    )
-})
+// const luxury = data.map(l => {
+//     return(
+//         <div className="pick-box">
+//             <a href="/">
+//                 <img src={l.image} alt="pick" />
+//             </a>
+//             <p className="pick-title">{l.title}</p>
+//         </div>
+//     )
+// })
 
 const LuxuryPicks = () => {
 
-    const [luxury, setLuxury] = useState({})
+    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
 
-    useEffect(() => {
-        fetch(`https://qoolqatar.com/qool_qatar/api/homedata`)
-            .then((response) => response.json())
-            // .then((data) => setletExplore(data.luxury_picks));
-            .then((data) => setLuxury(data.luxury_picks));
-    }, [])
 
     var settings = {
         dots: false,
@@ -93,16 +88,18 @@ const LuxuryPicks = () => {
                     <Col>
                         <Slider {...settings}>
                             {/* {luxury} */}
-                            {Object.keys(luxury).map((id, index) => {
-                                return(
+                            {isSuccess == true ? data.luxury_picks.map((e) => {
+                                return (
                                     <div className="pick-box">
                                         <a href="/">
-                                            <img src={img} alt="pick" />
+                                            <img src={e.Profilepic} alt="pick" />
                                         </a>
-                                        <p className="pick-title">{luxury[id].BusinessName}</p>
+                                        <p className="pick-title">{e.BusinessName}</p>
+                                        <p className="pick-des">{e.Name}</p>
+                                        <hr />
                                     </div>
                                 )
-                            })}
+                            }) : null}
                         </Slider>
                     </Col>
                 </Row>

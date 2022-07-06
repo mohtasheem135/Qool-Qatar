@@ -12,6 +12,10 @@ const UpcomingEvents = React.lazy(()=> import('../components/home/upcoming-event
 
 const Home = () =>{
     const {data, isLoading, isError, isSuccess} = useQuery('homeData', getHomeData);
+    if(isSuccess==true) {
+
+        console.log("HOME" )
+    }
     return(
         <MainPage>
             <ExperienceWorld />

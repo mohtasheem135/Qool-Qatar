@@ -3,6 +3,8 @@ import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { getHomeData } from '../../api_utils';
+import { useQuery } from 'react-query';
 
 const data = [
 	{
@@ -56,6 +58,9 @@ const upcoming = data.map(u => {
 })
 
 const UpcomingEvents = () => {
+
+    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
+
     var settings = {
         dots: false,
         lazyLoad: 'progressive',
@@ -65,14 +70,14 @@ const UpcomingEvents = () => {
         slidesToShow: 5,
         slidesToScroll: 1,
         responsive: [
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1
-				}
-			}
-		]
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     };
 
     return (
@@ -88,7 +93,18 @@ const UpcomingEvents = () => {
                 <Row>
                     <Col>
                         <Slider {...settings}>
-                            {upcoming}
+                            {/* {upcoming} */}
+                            {isSuccess == true ? data.event.map((e) => {
+                                return(
+                                    <div className="pick-box">
+                                        <a href="/">
+                                            <img src={e.event_image} alt="event" />
+                                        </a>
+                                        <p className="pick-title">{e.event_name}</p>
+                                        <p className="date-box"><img src={require('../../assets/images/Calendar.png')} alt="calendar" /> {e.start_time}</p>
+                                    </div>
+                                )
+                            }) : null}
                         </Slider>
                     </Col>
                 </Row>
