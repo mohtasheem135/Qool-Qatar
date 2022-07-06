@@ -1,8 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
-import { getHomeData } from '../../api_utils';
-import { useQuery } from 'react-query';
 
 // const data = [
 // 	{
@@ -32,22 +30,19 @@ import { useQuery } from 'react-query';
 // ]
 
 // const picks = data.map((pick, index) => {
-    // return(
-    //     <div className="pick-box">
-    //         <a href="/">
-    //             <img src={pick.image} key={index} alt="pick" />
-    //         </a>
-    //         <p key={index} className="pick-title">{pick.title}</p>
-    //         <p key={index} className="pick-des">{pick.meta}</p>
-    //     </div>
-    // )
+// return(
+//     <div className="pick-box">
+//         <a href="/">
+//             <img src={pick.image} key={index} alt="pick" />
+//         </a>
+//         <p key={index} className="pick-title">{pick.title}</p>
+//         <p key={index} className="pick-des">{pick.meta}</p>
+//     </div>
+// )
 // })
 
-const LetExplore = () => {
+const LetExplore = ({ data, isLoading, isSuccess, isError }) => {
 
-    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
-
-    
     var settings = {
         dots: false,
         lazyLoad: 'progressive',
@@ -57,14 +52,14 @@ const LetExplore = () => {
         slidesToShow: 3.11,
         slidesToScroll: 1,
         responsive: [
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1
-				}
-			}
-		]
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     };
 
     return (
@@ -81,13 +76,13 @@ const LetExplore = () => {
                         <Slider {...settings}>
                             {/* {picks} */}
                             {isSuccess == true ? data.categories.map((e) => {
-                                 return(
+                                return (
                                     <div className="pick-box">
                                         <a href="/">
                                             <img src={e.categories_img} alt="pick" />
                                         </a>
                                         <p className="pick-title">{e.categories_name}</p>
-                                        <p className="pick-des">kk</p>
+                                        <p className="pick-des">ME</p>
                                     </div>
                                 )
                             }) : null}

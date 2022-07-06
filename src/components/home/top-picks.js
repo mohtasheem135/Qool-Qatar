@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
-import { getHomeData } from '../../api_utils';
-import { useQuery } from 'react-query';
-
 
 // const dataa = [
 //     {
@@ -56,9 +53,7 @@ import { useQuery } from 'react-query';
 // })
 
 
-const TopPicks = () => {
-
-    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
+const TopPicks = ({ data, isLoading, isSuccess, isError }) => {
 
     var settings = {
         dots: false,

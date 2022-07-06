@@ -3,8 +3,7 @@ import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
-import { getHomeData } from '../../api_utils';
-import { useQuery } from 'react-query';
+
 
 // const data = [
 // 	{
@@ -50,10 +49,7 @@ import { useQuery } from 'react-query';
 //     )
 // })
 
-const LuxuryPicks = () => {
-
-    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
-
+const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
 
     var settings = {
         dots: false,
