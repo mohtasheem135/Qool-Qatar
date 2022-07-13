@@ -20,6 +20,7 @@ const BookingAfterPayment = React.lazy(()=> import('./pages/booking-after-paymen
 const BookPackage = React.lazy(()=> import('./pages/book-package'));
 const BlankReview = React.lazy(()=> import('./pages/blank-review'));
 const BlankReview1 = React.lazy(()=> import('./pages/blank-review1'));
+const OTPSignIN = React.lazy(()=> import('./pages/otp-signIn'));
 
 const App = () =>{
   return(
@@ -39,6 +40,7 @@ const App = () =>{
           <Route path='/book-package' element={<BookPackage />} />
           <Route path='/blank-review' element={<BlankReview />} />
           <Route path='/blank-review1' element={<BlankReview1 />} />
+          <Route path='/signIn' element={<OTPSignIN />} />
         </Routes>
       </Router>
   )
