@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkqool_qatar=self.webpackChunkqool_qatar||[]).push([[81],{81:function(a,e,n){n.r(e);n(2791);var s=n(184);e.default=function(){return(0,s.jsx)("div",{className:"",children:(0,s.jsx)("h3",{children:"Notifications"})})}}}]);
+//# sourceMappingURL=81.52ebb105.chunk.js.map

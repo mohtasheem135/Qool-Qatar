@@ -3,9 +3,13 @@ import firebase from '../firebase';
 import { useNavigate } from 'react-router';
 import PhoneInput from "react-phone-number-input";
 // import "../App.css";
-import "../OTPSignIn.css"
+import "../assets/css/OTPSignIn.css"
 import "react-phone-number-input/style.css";
-import OTPInput, { ResendOTP } from "otp-input-react";
+// import OTPInput, { ResendOTP } from "otp-input-react";
+import OtpInput from 'react-otp-input';
+import { MdOutlineCancel } from 'react-icons/md';
+import { IoIosArrowRoundBack } from 'react-icons/io';
+
 
 
 const OTPSignIN = () => {
@@ -42,8 +46,9 @@ const OTPSignIN = () => {
   }
 
   const handleNumber = (e) => {
-    setClick(true)
-    e.preventDefault()
+    if(number!='') {
+      setClick(true)
+      e.preventDefault()
     configureCaptcha()
     const phoneNumber = number
     // console.log(phoneNumber)
@@ -59,6 +64,10 @@ const OTPSignIN = () => {
         console.log(error)
         console.log("SMS not sent")
       });
+    } else {
+      alert('Enter the Mobile Number')
+    }
+    
   }
 
   const handleOTP = (e) => {
@@ -99,8 +108,18 @@ const OTPSignIN = () => {
       });
   }
 
+  const handelIcon_1 = (e) => {
+    e.preventDefault()
+    navigate("/")
+    window.location.reload()
+  }
 
-  // Captcha
+  const handelIcon_2 = (e) => {
+    e.preventDefault()
+    setClick(false)
+    // navigate("/")
+    // window.location.reload()
+  }
 
 
   return (
@@ -108,7 +127,8 @@ const OTPSignIN = () => {
       <div className='signIn-container'>
         {click == false ?
           <div className='signIn-container-1'>
-            <p className='signIn-container-1-p'>Sign-in to experience the best of <p className='signIn-container-1-p-2'>Qatar</p></p>
+            <MdOutlineCancel className='icon-1' onClick={handelIcon_1} />
+            <p className='signIn-container-1-p'>Sign-in to experience the best of </p>
             <label className='signIn-container-1-label'>Enter Phone Number</label>
             <PhoneInput
               defaultCountry={code}
@@ -123,12 +143,25 @@ const OTPSignIN = () => {
           </div>
           :
           <div className='signIn-container-1'>
+            <MdOutlineCancel className='icon-1' onClick={handelIcon_1} />
+            <IoIosArrowRoundBack className='icon-2' onClick={handelIcon_2} />
             <div id='recaptcha-container'></div>
-            <p className='signIn-container-1-p'>Enter OTP</p>
-            <p className='signIn-container-1-p-3'>OTP Sent to {number}</p>
-            <OTPInput className='otp-inp' value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure={false} />
+            <p className='signIn-container-2-p'>Enter OTP</p>
+
+            <p className='signIn-container-1-p-3'>OTP Sent to &nbsp;<p className='signIn-container-1-p-4'> {number}</p></p>
+
+            <div className='otp-inp-container'>
+            <OtpInput
+              value={OTP}
+              onChange={setOTP}
+              numInputs={6}
+              separator={<span>-</span>}
+              className='otp-inp-box'
+            />
+              </div>
+            {/* <OTPInput className='otp-inp' value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure={false} /> */}
             {/* <ResendOTP onResendClick={resend} /> */}
-            <button onClick={handleOTP} className='signIn-container-1-btn'>Get Started</button>
+            <button onClick={handleOTP} className='signIn-container-2-btn'>Get Started</button>
           </div>
         }
       </div>
