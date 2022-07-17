@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 
@@ -42,6 +42,7 @@ import Slider from "react-slick";
 // })
 
 const LetExplore = ({ data, isLoading, isSuccess, isError }) => {
+    
 
     var settings = {
         dots: false,
@@ -75,14 +76,13 @@ const LetExplore = ({ data, isLoading, isSuccess, isError }) => {
                     <Col>
                         <Slider {...settings}>
                             {/* {picks} */}
-                            {isSuccess == true ? data.categories.map((e) => {
+                            {isSuccess == true ? data.payload.map((e) => {
                                 return (
                                     <div className="pick-box">
                                         <a href="/">
-                                            <img src={e.categories_img} alt="pick" />
+                                            <img src={e.photoUrl} alt="pick" />
                                         </a>
-                                        <p className="pick-title">{e.categories_name}</p>
-                                        <p className="pick-des">ME</p>
+                                        <p className="pick-title">{e.name}</p>
                                     </div>
                                 )
                             }) : null}

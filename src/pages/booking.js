@@ -1,12 +1,20 @@
 import React, { useEffect} from 'react';
 import { Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import NumericInput from 'react-numeric-input';
+import { useNavigate } from 'react-router';
 const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
 
 const Booking = () => {
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.title = "Booking - Qool Qatar";
       }, []);
+
+      const handleClick=()=>{
+          navigate('/checkout');
+          window.location.reload()
+      }
 
     return (
         <MainPage>
@@ -57,7 +65,7 @@ const Booking = () => {
                                         <NumericInput mobile value="2" className="form-control numeric-box" />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input type="submit" value="Next" className="booking-btn" />
+                                        <Input onClick={handleClick} type="submit" value="Next" className="booking-btn" />
                                     </FormGroup>
                                 </Form>
                             </div>

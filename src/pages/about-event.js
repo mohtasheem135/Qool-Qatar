@@ -1,11 +1,21 @@
 import React, { useEffect} from 'react';
+import { Navigate } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'reactstrap';
+import { useNavigate } from 'react-router';
 const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
 
 const AboutEvent = () => {
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         document.title = "About Event - Qool Qatar";
       }, []);
+
+      const handleClick=()=> {
+          navigate('/booking');
+          window.location.reload()
+      }
 
     return (
         <MainPage>
@@ -58,7 +68,7 @@ const AboutEvent = () => {
                                 <p className="about-des">Exhibitors include many sports, luxury and mid-range car dealers as well as car accessory companies.</p>
 
                                 <p className="about-des">An event not to be missed ! </p>
-                                <Button className="about-btn">Book now</Button>
+                                <Button onClick={handleClick} className="about-btn">Book now</Button>
                             </div>
                         </Col>
                     </Row>

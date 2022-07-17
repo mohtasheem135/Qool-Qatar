@@ -12,7 +12,7 @@ const UpcomingEvents = React.lazy(() => import('../components/home/upcoming-even
 
 const Home = () => {
     const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
-
+    
     return (
         <MainPage>
             <ExperienceWorld />

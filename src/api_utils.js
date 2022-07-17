@@ -1,4 +1,3 @@
 export function getHomeData() {
-    // return fetch('https://qoolqatar.com/qool_qatar/api/homedata')
-    return fetch('https://qoolqatar.com/qool_qatar/api/homedata').then((response) => response.json())
+    return fetch('http://159.65.152.119/api/v1/admin/getall/category').then((response) => response.json())
 }

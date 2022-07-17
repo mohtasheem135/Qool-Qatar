@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
+import { useNavigate } from 'react-router';
 
 
 
@@ -84,9 +85,17 @@ const activities = data.map(a => {
 })
 
 const Activities = () => {
+
+    const navigate = useNavigate();
+
+    const handelClick=()=> {
+        navigate('/destination-page')
+        window.location.reload()
+    }
+
     return (
         <section className="activity-box">
-            <Container>
+            <Container onClick={handelClick}>
                 <Row>
                     {activities}
                 </Row>

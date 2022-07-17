@@ -84,7 +84,7 @@ const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
                     <Col>
                         <Slider {...settings}>
                             {/* {luxury} */}
-                            {isSuccess == true ? data.luxury_picks.map((e) => {
+                            {/* {isSuccess == true ? data.luxury_picks.map((e) => {
                                 return (
                                     <div className="pick-box">
                                         <a href="/">
@@ -95,7 +95,7 @@ const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
                                         <hr />
                                     </div>
                                 )
-                            }) : null}
+                            }) : null} */}
                         </Slider>
                     </Col>
                 </Row>

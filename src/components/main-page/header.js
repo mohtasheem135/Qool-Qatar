@@ -3,8 +3,17 @@ import { Col, Container, Row, Input } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Nav, Offcanvas, Form, FormGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
+
+    const navigate = useNavigate();
+
+    const handleClick =()=> {
+        navigate('/profile-page')
+        window.location.reload();
+    }
+
     return (
         <Fragment>
             <header className="sticky-top">
@@ -41,7 +50,7 @@ const Header = () => {
                                 <Nav.Link href="#" className="meta-icon"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" /></Nav.Link>
                                 <Nav.Link href="#" className="meta-icon"><img src={require('../../assets/images/hHeart.png')} alt="heart" /></Nav.Link>
                             </Nav>
-                            <img src={require('../../assets/images/Ellipse1.png')} alt="profile" />
+                            <img onClick={handleClick} src={require('../../assets/images/Ellipse1.png')} alt="profile" />
                         </Offcanvas.Body>
                         </Navbar.Offcanvas>
                         <a href="/" className="search-mob">
@@ -55,9 +64,9 @@ const Header = () => {
                         <Col lg={12}>
                             <div className="offer-line">
                                 <p>
-                                    <a href="/" className="offer1">23 Mins  : 32 Seconds Left</a>
-                                    <a href="/" className="offer2">Get QAR 50 off</a>
-                                    <a href="/"><FontAwesomeIcon icon={faArrowRightLong} /></a>                                
+                                    <a href="/lightining-deals" className="offer1">23 Mins  : 32 Seconds Left</a>
+                                    <a href="/lightining-deals" className="offer2">Get QAR 50 off</a>
+                                    <a href="/lightining-deals"><FontAwesomeIcon icon={faArrowRightLong} /></a>                                
                                 </p>
                             </div>
                         </Col>
