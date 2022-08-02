@@ -1,7 +1,15 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 const AccountSettings = () => {
+    const navigate = useNavigate();
+    function logOut() {
+        localStorage.removeItem('otp_signIn')
+        localStorage.removeItem('userID')
+        navigate('/')
+        window.location.reload()
+    }
     return (
         <div className="setting-box">
             <h3>Account Settings</h3>
@@ -15,7 +23,7 @@ const AccountSettings = () => {
                 </div>
                 <p className="red-txt">Delete Account</p>
             </div>
-            <Button>Logout</Button>
+            <Button onClick={logOut}>Logout</Button>
         </div>
     )
 }

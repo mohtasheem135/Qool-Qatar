@@ -83,7 +83,7 @@ const BookingAfterPayment = () => {
                         <Col lg={2}></Col>
                         <Col lg={10}>
                             <div className="booking-form">
-                                <Button className="payment-btn">Done</Button>
+                                <a href='/'><Button className="payment-btn">Done</Button></a>
                             </div>
                         </Col>
                     </Row>

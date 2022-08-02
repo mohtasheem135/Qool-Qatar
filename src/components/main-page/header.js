@@ -1,17 +1,31 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Col, Container, Row, Input } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Nav, Offcanvas, Form, FormGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router';
+import "../../assets/css/Pages.css"
 
 const Header = () => {
 
-    const navigate = useNavigate();
+    const [initialState, setInitialState] = useState({});
+    const { profilePic } = initialState;
 
-    const handleClick =()=> {
-        navigate('/profile-page')
-        window.location.reload();
+    useEffect(() => {
+        if (localStorage.getItem('userID') !== '') {
+            fetch(`https://qoolqatar.com/v1/admin/getall/users`)
+                .then((response2) => response2.json())
+                .then(user => {
+                    Object.keys(user.payload).map((id, index) => {
+                        if (user.payload[id]._id === localStorage.getItem('userID')) {
+                            initialState.profilePic = user.payload[id].profilePic
+                        }
+                    })
+                });
+        }
+    }, [])
+
+    const jj=(e)=> {
+        e.preventDefault()
     }
 
     return (
@@ -19,46 +33,72 @@ const Header = () => {
             <header className="sticky-top">
                 {['lg'].map((expand) => (
                     <Navbar key={expand} expand={expand} className="header-menu">
-                    <Container fluid>
-                        <Navbar.Brand href="/">
-                            <img src={require('../../assets/images/qool-qatar-logo.png')} alt="headerlogo" />
-                        </Navbar.Brand>
-                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-                        <Navbar.Offcanvas
-                        id={`offcanvasNavbar-expand-${expand}`}
-                        aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-                        placement="end"
-                        >
-                        <Offcanvas.Header closeButton>
-                            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                            <img src={require('../../assets/images/Group2402.png')} alt="signIn" /> Sign in/Sign up
-                            </Offcanvas.Title>
-                        </Offcanvas.Header>
-                        <Offcanvas.Body>
-                            <Form className="search-form">
-                            <FormGroup>
+                        <Container fluid>
+                            <Navbar.Brand href="/">
+                                <img src={require('../../assets/images/qool-qatar-logo.png')} alt="headerlogo" />
+                            </Navbar.Brand>
+                            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+                            <Navbar.Offcanvas
+                                id={`offcanvasNavbar-expand-${expand}`}
+                                aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+                                placement="end"
+                            >
+                                <Offcanvas.Header closeButton>
+                                    <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                                        {/* <img src={require('../../assets/images/Group2402.png')} alt="signIn" /> Sign in/Sign up */}
+                                        {localStorage.getItem('otp_signIn') == "Successfull" ?
+                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={localStorage.getItem('profilePic')} alt="profile" /></a>
+                                            // <a href='/profile-page'><img className='profile-img' src={initialState.profilePic} alt="profile" /></a>
+                                            :
+                                            <a className='a-sigin' href='/signIn'><img className='img_1' src={require('../../assets/images/Group2402.png')} alt="signIn" /><p className='p-sigin-text'>Sign in/Sign up</p></a>
+                                        }
+                                    </Offcanvas.Title>
+                                </Offcanvas.Header>
+                                <Offcanvas.Body>
+                                    <Form className="search-form">
+                                        <FormGroup>
+                                            <img src={require('../../assets/images/Search.png')} alt="search" />
+                                            <Input
+                                                type="text"
+                                                name="search"
+                                                placeholder="Search for Destinations, Activities, etc."
+                                            />
+                                        </FormGroup>
+                                    </Form>
+                                    <Nav className="justify-content-end">
+                                        <a  href='/profile-page?tab=notifications' className="meta-icon bbb"><img className='bbb' src={require('../../assets/images/notification.png')} alt="notification" /></a>
+                                        <a href="/profile-page?tab=loyaltyPoints" className="crown-box"><img src={require('../../assets/images/emojione-v1_crown.png')} alt="crown" /> 250</a>
+                                        <a href='/profile-page?tab=myBookings'  className="meta-icon"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" /></a>
+                                        <a  href='/profile-page?tab=myWishlist' className="meta-icon"><img src={require('../../assets/images/hHeart.png')} alt="heart" /></a>
+                                    </Nav>
+                                    <Nav className="justify-content-end-1">
+                                        <a href="/" className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/home_1.png')} alt="home" /><p className='mobile-nav-text'>Home</p></a>
+                                        <a href="#" className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/Search.png')} alt="home" /><p className='mobile-nav-text'>Explore</p></a>
+                                        <a href='/profile-page/?tab=myBookings' className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/hCalendar.png')} alt="calendar" /><p className='mobile-nav-text'>My Bookings</p></a>
+                                        <a href='/profile-page?tab=myWishlist' className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/hHeart.png')} alt="heart" /><p className='mobile-nav-text'>My Wishlist</p></a>
+                                        <a href='/profile-page?tab=myWishlist' className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/nNotification.png')} alt="heart" /><p className='mobile-nav-text'>My Notifications</p></a>
+                                    </Nav>
+                                    <div className='profile-img-div'>
+                                        {/* <img onClick={handleClick} src={require('../../assets/images/Ellipse1.png')} alt="profile" /> */}
+                                        {localStorage.getItem('otp_signIn') == "Successfull" ?
+                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={localStorage.getItem('profilePic')} alt="profile" /></a>
+                                            // <a href='/profile-page'><img className='profile-img' src={initialState.profilePic} alt="profile" /></a>
+                                            :
+                                            <a href='/signIn'><img className='img_1' src={require('../../assets/images/Group2402.png')} alt="signIn" /></a>
+                                        }
+                                    </div>
+                                </Offcanvas.Body>
+                            </Navbar.Offcanvas>
+                            
+                            <a href="/" className="search-mob">
                                 <img src={require('../../assets/images/Search.png')} alt="search" />
-                                <Input 
-                                    type="text"
-                                    name="search"
-                                    placeholder="Search for Destinations, Activities, etc."
-                                />
-                            </FormGroup>
-                            </Form>
-                            <Nav className="justify-content-end">
-                                <Nav.Link href="#" className="crown-box"><img src={require('../../assets/images/emojione-v1_crown.png')} alt="crown" /> 250</Nav.Link>
-                                <Nav.Link href="#" className="meta-icon"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" /></Nav.Link>
-                                <Nav.Link href="#" className="meta-icon"><img src={require('../../assets/images/hHeart.png')} alt="heart" /></Nav.Link>
-                            </Nav>
-                            <img onClick={handleClick} src={require('../../assets/images/Ellipse1.png')} alt="profile" />
-                        </Offcanvas.Body>
-                        </Navbar.Offcanvas>
-                        <a href="/" className="search-mob">
-                            <img src={require('../../assets/images/Search.png')} alt="search" />
-                        </a>
-                    </Container>
+                            </a>
+                        </Container>
                     </Navbar>
                 ))}
+                <div className='jjj' >
+                                <h1>Hellooo</h1>
+                            </div>
                 <Container fluid>
                     <Row>
                         <Col lg={12}>
@@ -66,7 +106,7 @@ const Header = () => {
                                 <p>
                                     <a href="/lightining-deals" className="offer1">23 Mins  : 32 Seconds Left</a>
                                     <a href="/lightining-deals" className="offer2">Get QAR 50 off</a>
-                                    <a href="/lightining-deals"><FontAwesomeIcon icon={faArrowRightLong} /></a>                                
+                                    <a href="/lightining-deals"><FontAwesomeIcon icon={faArrowRightLong} /></a>
                                 </p>
                             </div>
                         </Col>

@@ -4,51 +4,51 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 
-const data = [
-	{
-		id: 1,
-		image: require('../../assets/images/a1.png'),
-		title: "Activity Name"
-	},
-	{
-		id: 2,
-		image: require('../../assets/images/a2.png'),
-		title: "Activity Name"
-	},
-	{
-		id: 3,
-		image: require('../../assets/images/a3.png'),
-		title: "Activity Name"
-	},
-    {
-		id: 4,
-		image: require('../../assets/images/a4.png'),
-		title: "Activity Name"
-	},
-    {
-		id: 5,
-		image: require('../../assets/images/a5.png'),
-		title: "Activity Name"
-	},
-    {
-		id: 6,
-		image: require('../../assets/images/a1.png'),
-		title: "Activity Name"
-	},
-]
+// const data = [
+// 	{
+// 		id: 1,
+// 		image: require('../../assets/images/a1.png'),
+// 		title: "Activity Name"
+// 	},
+// 	{
+// 		id: 2,
+// 		image: require('../../assets/images/a2.png'),
+// 		title: "Activity Name"
+// 	},
+// 	{
+// 		id: 3,
+// 		image: require('../../assets/images/a3.png'),
+// 		title: "Activity Name"
+// 	},
+//     {
+// 		id: 4,
+// 		image: require('../../assets/images/a4.png'),
+// 		title: "Activity Name"
+// 	},
+//     {
+// 		id: 5,
+// 		image: require('../../assets/images/a5.png'),
+// 		title: "Activity Name"
+// 	},
+//     {
+// 		id: 6,
+// 		image: require('../../assets/images/a1.png'),
+// 		title: "Activity Name"
+// 	},
+// ]
 
-const activities = data.map(a => {
-    return(
-        <div className="pick-box">
-            <a href="/">
-                <img src={a.image} alt="pick" />
-            </a>
-            <p className="pick-title">{a.title}</p>
-        </div>
-    )
-})
+// const activities = data.map(a => {
+//     return(
+//         <div key={a} className="pick-box">
+//             <a href="/destination-page">
+//                 <img src={a.image} alt="pick" />
+//             </a>
+//             <p className="pick-title">{a.title}</p>
+//         </div>
+//     )
+// })
 
-const ActivitiesNear = () => {
+const ActivitiesNear = ({ data, isLoading, isSuccess, isError }) => {
     var settings = {
         dots: false,
         lazyLoad: 'progressive',
@@ -74,14 +74,25 @@ const ActivitiesNear = () => {
                 <Row>
                     <Col lg={6}>
                         <h3>Activities Nearby</h3>
-                        <a href={() => true}>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
+                        {/* <a href={() => true}>View More <FontAwesomeIcon icon={faArrowRightLong} /></a> */}
+                        <a href='list-of-activities-nearby'>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
                     </Col>
                     <Col lg={6}></Col>
                 </Row>
                 <Row className="bottom-line">
                     <Col>
                         <Slider {...settings}>
-                            {activities}
+                            {/* {activities} */}
+                            {isSuccess == true ? data.payload.nearByPackages.map((e) => {
+                                return (
+                                    <div key={e} className="pick-box">
+                                        <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
+                                        </a>
+                                        <p className="pick-title">{e.name}</p>
+                                        <p className="pick-des">28 Activities</p>
+                                    </div>
+                                )
+                            }) : null}
                         </Slider>
                     </Col>
                 </Row>

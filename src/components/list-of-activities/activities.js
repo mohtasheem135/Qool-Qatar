@@ -77,7 +77,7 @@ const activities = data.map(a => {
             <div className="activity">
                 <img src={a.image} alt="place" />
                 <p className="title">{a.title}</p>
-                <p className="company">By {a.company}</p>
+                <p className="company">By <a href='/vendor-page'>{a.company}</a></p>
                 <p className="my-cat">{a.category}</p>
             </div>
         </Col>

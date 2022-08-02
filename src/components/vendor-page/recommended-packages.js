@@ -78,7 +78,8 @@ const places = data.map(p => {
                     <p className="start-from">Starts from</p>
                     <div className="price-box">
                         <p><span className="main-price">{p.price}</span><span className="txt1">/Per Person</span></p>
-                        <Button>Choose Package</Button>
+                        <a href='/package-page'><Button>Choose Package</Button></a>
+                        
                     </div>
                 </div>
             </div>

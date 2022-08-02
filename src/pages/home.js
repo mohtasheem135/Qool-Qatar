@@ -13,15 +13,17 @@ const UpcomingEvents = React.lazy(() => import('../components/home/upcoming-even
 const Home = () => {
     const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
     
+   
+    
     return (
         <MainPage>
             <ExperienceWorld />
             <LetExplore data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
             <TopPicks data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
             <BestDeals />
-            <ActivitiesNear />
+            <ActivitiesNear data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
             <LuxuryPicks data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
-            <UpcomingEvents data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
+            <UpcomingEvents  />
         </MainPage>
     )
 }

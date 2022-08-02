@@ -45,7 +45,7 @@ const data = [
 
 const upcoming = data.map(u => {
     return(
-        <div className="pick-box">
+        <div key={u} className="pick-box">
             <a href="/about-event">
                 <img src={u.image} alt="event" />
             </a>
@@ -82,7 +82,8 @@ const UpcomingEvents = ({ data, isLoading, isSuccess, isError }) => {
                 <Row>
                     <Col lg={6}>
                         <h3>Upcoming Events</h3>
-                        <a href={() => true}>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
+                        {/* <a href={() => true}>View More <FontAwesomeIcon icon={faArrowRightLong} /></a> */}
+                        <a href='/list-of-activities-nearby'>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
                     </Col>
                     <Col lg={6}></Col>
                 </Row>

@@ -3,6 +3,8 @@ import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { getPackages } from '../../api_utils';
+import { useQuery } from 'react-query';
 
 
 // const data = [
@@ -41,7 +43,7 @@ import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 // const luxury = data.map(l => {
 //     return(
 //         <div className="pick-box">
-//             <a href="/">
+//             <a href="/destination-page">
 //                 <img src={l.image} alt="pick" />
 //             </a>
 //             <p className="pick-title">{l.title}</p>
@@ -50,6 +52,7 @@ import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 // })
 
 const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
+
 
     var settings = {
         dots: false,
@@ -70,32 +73,45 @@ const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
 		]
     };
 
+    const jj = (event, param) => {
+        console.log(param);
+        localStorage.setItem('topPicks_destination', JSON.stringify(param));
+        localStorage.setItem('topPicks_destination_lat', JSON.stringify(param.location.coordinates[0]));
+        localStorage.setItem('topPicks_destination_lng', JSON.stringify(param.location.coordinates[1]));
+        Object.keys(param.photos).map((id, index) => {
+            console.log("gg " + param.photos[id])
+        })
+    }
+
     return (
         <section className="top-picks activities-near">
             <Container>
                 <Row>
                     <Col lg={6}>
                         <h3>Luxury Picks</h3>
-                        <a href={() => true}>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
+                        <a href='/list-of-activities-nearby'>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
                     </Col>
                     <Col lg={6}></Col>
                 </Row>
                 <Row>
-                    <Col>
+                    <Col lg={12}>
                         <Slider {...settings}>
                             {/* {luxury} */}
-                            {/* {isSuccess == true ? data.luxury_picks.map((e) => {
-                                return (
-                                    <div className="pick-box">
-                                        <a href="/">
-                                            <img src={e.Profilepic} alt="pick" />
-                                        </a>
-                                        <p className="pick-title">{e.BusinessName}</p>
-                                        <p className="pick-des">{e.Name}</p>
-                                        <hr />
-                                    </div>
-                                )
-                            }) : null} */}
+                            {isSuccess == true ? data.payload.luxuryPicks.map((e) => {
+                                // console.log(e.isTopPicks)
+                                // if(e.isLuxuryPicks==true){
+                                    return (
+                                        <div key={e} className="pick-box">
+                                            <a onClick={event => jj(event, e)} href='/destination-page'>
+                                                <img src={e.photoUrl} alt="pick" />
+                                            </a>
+                                            <p className="pick-title">{e.name}</p>
+                                        </div>
+                                    )
+                                // }
+                                
+                            }) : null}
+                            
                         </Slider>
                     </Col>
                 </Row>

@@ -1,15 +1,20 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { getHomeData } from '../api_utils';
+import { useQuery } from 'react-query';
 import { FormCheck } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import { Col, Container, Form, Row } from 'reactstrap';
-const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
-const Activities = React.lazy(()=> import('../components/list-of-activities/activities'));
+const MainPage = React.lazy(() => import('../components/main-page/main-page'));
+const Activities = React.lazy(() => import('../components/list-of-activities/activities'));
+
 
 const ListOfActivities = () => {
     useEffect(() => {
         document.title = "List Of Activities - Qool Qatar";
-      }, []);
+    }, []);
+
+    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
 
     return (
         <MainPage>
@@ -19,7 +24,7 @@ const ListOfActivities = () => {
                         <Col>
                             <ul className="breadcrumb">
                                 <li>Adventure</li>
-                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow"/></li>
+                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow" /></li>
                                 <li>Activities</li>
                             </ul>
                         </Col>
@@ -31,7 +36,25 @@ const ListOfActivities = () => {
                             <div className="categories-block">
                                 <p className="head">Categories</p>
                                 <Form className="cat-form">
-                                    <FormCheck>
+                                    {isSuccess == true ? data.payload.map((e) => {
+                                        // console.log(e.isTopPicks)
+                                        // if (e.isTopPicks == true) {
+                                        return (
+                                            // <div key={e} className="pick-box">
+                                            //     <a href='/destination-page' >
+                                            //         <img src={e.photoUrl} alt="pick" />
+                                            //     </a>
+                                            //     <p className="pick-title">{e.name}</p>
+                                            // </div>
+                                            <FormCheck>
+                                                <FormCheckLabel>{e.name}</FormCheckLabel>
+                                                <FormCheckInput></FormCheckInput>
+                                            </FormCheck>
+                                        )
+                                        // }
+
+                                    }) : null}
+                                    {/* <FormCheck>
                                         <FormCheckLabel>Adventure Tours</FormCheckLabel>
                                         <FormCheckInput></FormCheckInput>
                                     </FormCheck>
@@ -70,9 +93,9 @@ const ListOfActivities = () => {
                                     <FormCheck>
                                         <FormCheckLabel>Category name</FormCheckLabel>
                                         <FormCheckInput></FormCheckInput>
-                                    </FormCheck>
+                                    </FormCheck> */}
                                 </Form>
-                                <p className="head">Languages</p>
+                                {/* <p className="head">Languages</p>
                                 <Form className="cat-form">
                                     <FormCheck>
                                         <FormCheckLabel>English (UK)</FormCheckLabel>
@@ -90,7 +113,7 @@ const ListOfActivities = () => {
                                         <FormCheckLabel>French</FormCheckLabel>
                                         <FormCheckInput></FormCheckInput>
                                     </FormCheck>
-                                </Form>
+                                </Form> */}
                             </div>
                         </Col>
                         <Col lg={9}>

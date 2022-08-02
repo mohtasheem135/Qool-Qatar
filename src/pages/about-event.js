@@ -1,8 +1,7 @@
-import React, { useEffect} from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { useNavigate } from 'react-router';
-const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
+const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 
 const AboutEvent = () => {
 
@@ -10,12 +9,8 @@ const AboutEvent = () => {
 
     useEffect(() => {
         document.title = "About Event - Qool Qatar";
-      }, []);
+    }, []);
 
-      const handleClick=()=> {
-          navigate('/booking');
-          window.location.reload()
-      }
 
     return (
         <MainPage>
@@ -25,7 +20,7 @@ const AboutEvent = () => {
                         <Col lg={12}>
                             <ul className="breadcrumb">
                                 <li>Events</li>
-                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow"/></li>
+                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow" /></li>
                                 <li>Qatar Motor Show</li>
                             </ul>
                         </Col>
@@ -33,14 +28,14 @@ const AboutEvent = () => {
                     <Row className="destination-info about-info">
                         <Col lg={4}>
                             <div className="pick-left">
-                                <img src={require('../assets/images/event1.png')} alt="big"/>
+                                <img src={require('../assets/images/event1.png')} alt="big" />
                                 <ul className="img-list">
-                                    <li><img src={require('../assets/images/Rectangle38.png')} alt="small"/></li>
-                                    <li><img src={require('../assets/images/Rectangle39.png')} alt="small"/></li>
-                                    <li><img src={require('../assets/images/Rectangle40.png')} alt="small"/></li>
-                                    <li><img src={require('../assets/images/Rectangle41.png')} alt="small"/></li>
-                                    <li><img src={require('../assets/images/Rectangle42.png')} alt="small"/></li>
-                                    <li><img src={require('../assets/images/Rectangle43.png')} alt="small"/></li>
+                                    <li><img src={require('../assets/images/Rectangle38.png')} alt="small" /></li>
+                                    <li><img src={require('../assets/images/Rectangle39.png')} alt="small" /></li>
+                                    <li><img src={require('../assets/images/Rectangle40.png')} alt="small" /></li>
+                                    <li><img src={require('../assets/images/Rectangle41.png')} alt="small" /></li>
+                                    <li><img src={require('../assets/images/Rectangle42.png')} alt="small" /></li>
+                                    <li><img src={require('../assets/images/Rectangle43.png')} alt="small" /></li>
                                 </ul>
                             </div>
                         </Col>
@@ -63,12 +58,14 @@ const AboutEvent = () => {
                                 </Row>
                                 <p className="about-des">Held under the patronage of H.E. Abdullah bin Nasser bin Khalifa Al Thani, Prime Minister of the State of Qatar, the Qatar Motor Show is one of the most important consumer events in Qatar.</p>
 
-                                <p className="about-des">Qatar Motor Show brings together some of the most notable international car makers showcasing their latest models.</p> 
+                                <p className="about-des">Qatar Motor Show brings together some of the most notable international car makers showcasing their latest models.</p>
 
                                 <p className="about-des">Exhibitors include many sports, luxury and mid-range car dealers as well as car accessory companies.</p>
 
                                 <p className="about-des">An event not to be missed ! </p>
-                                <Button onClick={handleClick} className="about-btn">Book now</Button>
+                                <a href='/booking'>
+                                    <Button className="about-btn">Book now</Button>
+                                </a>
                             </div>
                         </Col>
                     </Row>

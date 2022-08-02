@@ -163,12 +163,32 @@
         width: 265px;
         margin-left: 15px;
     }
+    .experience-world{
+        height: 350px;
+        margin: 0px 0 48px;
+    }
+    .experience-world .txt-box{
+        width: 308px;
+        margin: 86px auto;
+    }
+    .experience-world h1{
+        font-size: 27px;
+        line-height: 60px;
+    }
+    .experience-world .btn{
+        padding: 8px 44px !important;
+        margin-top: 20px;
+    }
 }
 
 @media (min-width:991px){
     .search-mob{
         display: none;
     }
+    .justify-content-end-1{
+        display: none !important ;
+    }
+    
 }
 
 @media (max-width:991px){
@@ -197,5 +217,22 @@
     .meta-icon {
         width: fit-content;
         margin-top: 16px;
+    }
+    .justify-content-end{
+        // visibility: hidden;
+        display: none !important ;
+    }
+    .profile-img-div{
+        display: none !important ;
+    
+    }
+    .a-sigin{
+        display: flex;
+        align-items: center;
+    }
+    
+    .p-sigin-text{
+        margin-left: 15px;
+        color: black;
     }
 }

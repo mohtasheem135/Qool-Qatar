@@ -1,16 +1,7 @@
 import React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
-import { useNavigate } from 'react-router';
 
 const ExperienceWorld = () => {
-
-    const navigate = useNavigate();
-
-    const handelClick=(e)=> {
-        e.preventDefault();
-        navigate('/list-of-activities')
-        window.location.reload()
-    }
 
     return (
         <section className="experience-world">
@@ -19,7 +10,7 @@ const ExperienceWorld = () => {
                     <Col lg={12}>
                         <div className="txt-box">
                             <h1>Experience a World Beyond</h1>
-                            <Button onClick={handelClick}>Explore</Button>
+                            <a href='/list-of-activities'><Button>Explore</Button></a>
                         </div>
                     </Col>
                 </Row>

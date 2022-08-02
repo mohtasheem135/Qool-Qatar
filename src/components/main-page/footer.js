@@ -18,6 +18,7 @@ const Footer = () => {
                                 <li><a href={() => true}>Terms  of Use</a></li>
                                 <li><a href={() => true}>Privacy & Cookies</a></li>
                                 <li><a href={() => true}>Site Map</a></li>
+                                <li><a href='/contact-us'>Contact Us</a></li>
                             </ul>
                         </div>
                     </Col>

@@ -105,7 +105,8 @@ const Reviews = () => {
                                     <ProgressBar now={10} />
                                 </div>
                             </div>
-                            <Button className="review-btn">Write a review</Button>
+                            <a href='/blank-review'><Button className="review-btn">Write a review</Button></a>
+                            
                             <p className="write-txt">Write a review & earn loyalty points to get discounts, offers on packages.</p>
                         </div>
                     </Col>

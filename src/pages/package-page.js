@@ -39,7 +39,7 @@ const PackagePage = () => {
                                     <li><img src={require('../assets/images/check.png')} alt="check" /> Taking Covid-19 Safety Measures</li>
                                     <li><img src={require('../assets/images/home.png')} alt="home" /> Hotel Pickup Offered</li>
                                 </ul>
-                                <Button className="book-btn">Book now</Button>
+                                <a href='/book-package'><Button className="book-btn">Book now</Button></a>
                             </div>
                         </Col>
                     </Row>

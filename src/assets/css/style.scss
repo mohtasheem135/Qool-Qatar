@@ -124,6 +124,10 @@ a:hover {
     padding: 10px !important;
     margin-right: 16px;
 }
+
+
+
+
 footer{
     background: #F8F8F8;
     padding: 60px 80px;
@@ -154,7 +158,8 @@ footer img{
     font-size: 14px;
     line-height: 19px;
     color: #000000 !important;
-    margin-right: 50px;
+    // margin-right: 50px;
+    margin-right: 25px;
 }
 .bottom-footer form{
     display: flex;
@@ -523,7 +528,7 @@ header .container-fluid {
 }
 .profile-tabs .nav {
     border-right: 1px solid #dedede !important;
-    padding-bottom: 100px;
+    padding-bottom: 0px;
 }
 .profile-tabs .nav-link{
     font-weight: 700;
@@ -548,6 +553,12 @@ header .container-fluid {
     line-height: 33px !important;
     color: #000000;
     margin-bottom: 50px !important;
+}
+.active {
+    font-family: 'Manrope', sans-serif;
+    line-height: 40px;
+    font-weight: 700;
+    // font-size: 16px;
 }
 .currency-box label{
     font-weight: 700;
@@ -702,6 +713,8 @@ header .container-fluid {
 }
 .my-reviews img.user-img{
     margin-right: 20px;
+    width: 66px;
+    height: 66px;
 }
 .my-reviews .review-box:first-child{
     border-bottom: 1px solid #EAEAEA;
@@ -789,10 +802,15 @@ header .container-fluid {
     width: 44px;
     height: 44px;
     text-align: center;
-    line-height: 44px;
+    line-height: 39px;
     border-radius: 50%;
     border: 1px solid #000000;
-    margin-left: 20px;
+    margin-left: 60px;
+}
+.del-box:hover{
+    border: 2px solid #000000;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px grey;
 }
 .package-info{
     margin-bottom: 76px !important;

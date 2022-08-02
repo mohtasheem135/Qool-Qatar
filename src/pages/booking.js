@@ -1,20 +1,20 @@
-import React, { useEffect} from 'react';
-import { Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import React, { useEffect } from 'react';
+import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import NumericInput from 'react-numeric-input';
 import { useNavigate } from 'react-router';
-const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
+const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 
 const Booking = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
         document.title = "Booking - Qool Qatar";
-      }, []);
+    }, []);
 
-      const handleClick=()=>{
-          navigate('/checkout');
-          window.location.reload()
-      }
+    const handleClick = () => {
+        navigate('/checkout');
+        window.location.reload()
+    }
 
     return (
         <MainPage>
@@ -24,16 +24,16 @@ const Booking = () => {
                         <Col lg={12}>
                             <ul className="breadcrumb">
                                 <li>Events</li>
-                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow"/></li>
+                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow" /></li>
                                 <li>Qatar Motor Show</li>
-                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow"/></li>
+                                <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow" /></li>
                                 <li>Booking</li>
                             </ul>
                         </Col>
                     </Row>
                     <Row className="about-info">
                         <Col lg={3}>
-                            <img src={require('../assets/images/event1.png')} className="booking-img" alt="big"/>
+                            <img src={require('../assets/images/event1.png')} className="booking-img" alt="big" />
                             <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> Sat, 1 Oct</p>
                             <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> West Bay, Doha, Qatar</p>
                         </Col>
@@ -65,7 +65,8 @@ const Booking = () => {
                                         <NumericInput mobile value="2" className="form-control numeric-box" />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input onClick={handleClick} type="submit" value="Next" className="booking-btn" />
+                                        {/* <Input type="submit" value="Next" className="booking-btn" /> */}
+                                        <Button onClick={handleClick} className="about-btn">Next</Button>
                                     </FormGroup>
                                 </Form>
                             </div>

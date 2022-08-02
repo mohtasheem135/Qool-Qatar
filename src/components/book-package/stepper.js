@@ -5,6 +5,7 @@ import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import NumericInput from 'react-numeric-input';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
+import "../../assets/css/Pages.css"
 // const TimeSlot = React.lazy(()=> import('../stepper/time-slot'));
 
 // const { useState, useRef, useEffect, Fragment } = React;
@@ -152,6 +153,7 @@ let StepperFooter = ({
 						: stepperContent[currentTabIndex].clicked
 						? submitCurrentStep
 						: nextStepHandler
+						
 				}
 				disabled={
 					// (isLastStep
@@ -160,7 +162,7 @@ let StepperFooter = ({
 					stepperContent[currentTabIndex].isLoading
 				}
 			>
-				{isLastStep ? 'Proceed to Payment' : `Next`}
+				{isLastStep ? `Proceed to Payment` : `Next`}
 			</button>
 		</div>
 	);

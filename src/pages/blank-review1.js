@@ -64,7 +64,7 @@ const BlankReview1 = () => {
                     </div>
                     <p className="thanks">Thank You!</p>
                     <p className="publish">Your Review has been published!</p>
-                    <p className="back">Back to Home</p>
+                    <a href='/'><p className="back">Back to Home</p></a>
                 </div>
             </section>
         </MainPage>

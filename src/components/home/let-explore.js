@@ -42,7 +42,6 @@ import Slider from "react-slick";
 // })
 
 const LetExplore = ({ data, isLoading, isSuccess, isError }) => {
-    
 
     var settings = {
         dots: false,
@@ -76,13 +75,13 @@ const LetExplore = ({ data, isLoading, isSuccess, isError }) => {
                     <Col>
                         <Slider {...settings}>
                             {/* {picks} */}
-                            {isSuccess == true ? data.payload.map((e) => {
+                            {isSuccess == true ? data.payload.category.map((e) => {
                                 return (
-                                    <div className="pick-box">
-                                        <a href="/">
-                                            <img src={e.photoUrl} alt="pick" />
+                                    <div key={e} className="pick-box">
+                                        <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
                                         </a>
                                         <p className="pick-title">{e.name}</p>
+                                        <p className="pick-des">28 Activities</p>
                                     </div>
                                 )
                             }) : null}

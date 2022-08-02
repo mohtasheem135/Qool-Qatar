@@ -84,7 +84,7 @@ const Checkout = () => {
                         <Col lg={2}></Col>
                         <Col lg={10}>
                             <div className="booking-form">
-                                <Button className="payment-btn">Proceed to Payment</Button>
+                                <a href='/booking-after-payment'><Button className="payment-btn">Proceed to Payment</Button></a>
                             </div>
                         </Col>
                     </Row>

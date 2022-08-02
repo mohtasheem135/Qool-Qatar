@@ -1,58 +1,61 @@
 import React from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
+import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../assets/css/Pages.css"
 
 const data = [
-	{
-		id: 1,
-		image: require('../../assets/images/unsplash_EdzsUFqHbaY.png'),
-		title: "Restaurant Name",
-		location: "Doha, Qatar",
-        offer: "$50",
-        discount: "(10% off)",
-        price: "$48.65"
-	},
-	{
-		id: 2,
-		image: require('../../assets/images/Rectangle16.png'),
-		title: "Activity Package Name",
-		location: "Doha, Qatar",
-        offer: "$50",
-        discount: "(10% off)",
-        price: "$48.65"
-	},
-	{
-		id: 3,
-		image: require('../../assets/images/Rectangle17.png'),
-		title: "Skating Show in Doha Package",
-		location: "Doha, Qatar",
-        offer: "$50",
-        discount: "(10% off)",
-        price: "$48.65"
-	},
     {
-		id: 4,
-		image: require('../../assets/images/Rectangle18.png'),
-		title: "Package Name",
-		location: "Doha, Qatar",
+        id: 1,
+        image: require('../../assets/images/unsplash_EdzsUFqHbaY.png'),
+        title: "Restaurant Name",
+        location: "Doha, Qatar",
         offer: "$50",
         discount: "(10% off)",
         price: "$48.65"
-	},
+    },
     {
-		id: 5,
-		image: require('../../assets/images/unsplash_EdzsUFqHbaY.png'),
-		title: "Restaurant Name",
-		location: "Doha, Qatar",
+        id: 2,
+        image: require('../../assets/images/Rectangle16.png'),
+        title: "Activity Package Name",
+        location: "Doha, Qatar",
         offer: "$50",
         discount: "(10% off)",
         price: "$48.65"
-	},
+    },
+    {
+        id: 3,
+        image: require('../../assets/images/Rectangle17.png'),
+        title: "Skating Show in Doha Package",
+        location: "Doha, Qatar",
+        offer: "$50",
+        discount: "(10% off)",
+        price: "$48.65"
+    },
+    {
+        id: 4,
+        image: require('../../assets/images/Rectangle18.png'),
+        title: "Package Name",
+        location: "Doha, Qatar",
+        offer: "$50",
+        discount: "(10% off)",
+        price: "$48.65"
+    },
+    {
+        id: 5,
+        image: require('../../assets/images/unsplash_EdzsUFqHbaY.png'),
+        title: "Restaurant Name",
+        location: "Doha, Qatar",
+        offer: "$50",
+        discount: "(10% off)",
+        price: "$48.65"
+    },
 ]
 
 const deals = data.map(d => {
-    return(
-        <div className="pick-box deal-box">
+    return (
+        <div key={d} className="pick-box deal-box">
             <a href="/">
                 <img src={d.image} alt="pick" />
             </a>
@@ -64,7 +67,7 @@ const deals = data.map(d => {
                 <p className="start-from">Starts from</p>
                 <div className="price-box">
                     <p><span className="main-price">{d.price}</span><span className="txt1">/Per Person</span></p>
-                    <Button>Book</Button>
+                    <a href='/profile-page?tab=myBookings'><Button>Book</Button></a>
                 </div>
             </div>
         </div>
@@ -81,23 +84,25 @@ const BestDeals = () => {
         slidesToShow: 4,
         slidesToScroll: 1,
         responsive: [
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-                    rows: 3
-				}
-			}
-		]
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    // rows: 3
+                }
+            }
+        ]
     };
 
     return (
+        // <section className="top-picks deal-picks">
         <section className="top-picks deal-picks">
             <Container>
                 <Row>
                     <Col lg={6}>
                         <h3>Best Deals</h3>
+                        <a className='best-deals-view-link' href='/best-dealss'>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
                     </Col>
                     <Col lg={6}></Col>
                 </Row>
