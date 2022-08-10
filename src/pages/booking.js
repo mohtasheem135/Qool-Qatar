@@ -16,6 +16,17 @@ const Booking = () => {
         window.location.reload()
     }
 
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        localStorage.setItem('booking_FirstName', e.target[0].value)
+        localStorage.setItem('booking_LastName', e.target[1].value)
+        localStorage.setItem('booking_Email', e.target[2].value)
+        localStorage.setItem('booking_Mobile', e.target[3].value)
+        localStorage.setItem('booking_Guests', e.target[4].value)
+        navigate('/checkout')
+        window.location.reload()
+    }
+
     return (
         <MainPage>
             <section className="booking-box1">
@@ -42,7 +53,7 @@ const Booking = () => {
                                 <p className="title">Qatar Motor Show</p>
                                 <p className="sub">Your Details</p>
                                 <p className="des">Please Tell us about yourself</p>
-                                <Form>
+                                <Form onSubmit={handleSubmit}>
                                     <FormGroup>
                                         <Label>First Name</Label>
                                         <Input type="text" />
@@ -65,8 +76,8 @@ const Booking = () => {
                                         <NumericInput mobile value="2" className="form-control numeric-box" />
                                     </FormGroup>
                                     <FormGroup>
-                                        {/* <Input type="submit" value="Next" className="booking-btn" /> */}
-                                        <Button onClick={handleClick} className="about-btn">Next</Button>
+                                        <Input type="submit" value="Next" className="booking-btn" />
+                                        {/* <Button onClick={handleClick} className="about-btn">Next</Button> */}
                                     </FormGroup>
                                 </Form>
                             </div>

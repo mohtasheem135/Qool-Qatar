@@ -1,6 +1,6 @@
 import React from 'react';
-import { getHomeData } from '../api_utils';
-import { useQuery } from 'react-query';
+// import { getHomeData } from '../api_utils';
+// import { useQuery } from 'react-query';
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 const ExperienceWorld = React.lazy(() => import('../components/home/experience'));
 const LetExplore = React.lazy(() => import('../components/home/let-explore'));
@@ -11,19 +11,19 @@ const LuxuryPicks = React.lazy(() => import('../components/home/luxury-picks'));
 const UpcomingEvents = React.lazy(() => import('../components/home/upcoming-events'));
 
 const Home = () => {
-    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
     
-   
-    
+    const data = JSON.parse(localStorage.getItem('Home_Data')).data
+
     return (
         <MainPage>
+            {/* <h1>JSON.parse(localStorage.getItem('Home_Data')).data.message</h1> */}
             <ExperienceWorld />
-            <LetExplore data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
-            <TopPicks data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
+            <LetExplore data={data} />
+            <TopPicks data={data} />
             <BestDeals />
-            <ActivitiesNear data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
-            <LuxuryPicks data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
-            <UpcomingEvents  />
+            <ActivitiesNear data={data} />
+            <LuxuryPicks data={data}  />
+            <UpcomingEvents />
         </MainPage>
     )
 }

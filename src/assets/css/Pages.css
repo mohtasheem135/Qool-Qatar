@@ -442,3 +442,8 @@
         height: 200px;
     }
 }
+
+.mess {
+    border: 2px solid red;
+    width: 100%;
+}

@@ -48,7 +48,7 @@ import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 //     )
 // })
 
-const ActivitiesNear = ({ data, isLoading, isSuccess, isError }) => {
+const ActivitiesNear = ({ data }) => {
     var settings = {
         dots: false,
         lazyLoad: 'progressive',
@@ -83,7 +83,8 @@ const ActivitiesNear = ({ data, isLoading, isSuccess, isError }) => {
                     <Col>
                         <Slider {...settings}>
                             {/* {activities} */}
-                            {isSuccess == true ? data.payload.nearByPackages.map((e) => {
+                            
+                            {data.error == false ? data.payload.nearByPackages.map((e) => {
                                 return (
                                     <div key={e} className="pick-box">
                                         <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BASE_URL} from './api_utils';
+import Axios from 'axios';
 import './assets/css/style.scss';
 import './assets/css/responsive.scss';
 import './App.css';
@@ -25,12 +27,30 @@ const OTPSignIN = React.lazy(()=> import('./pages/otp-signIn'));
 const MyBookings = React.lazy(()=> import('./pages/home'));
 const BestDDeals = React.lazy(()=> import('./pages/list-best-deals'));
 const ContactUs = React.lazy(()=> import('./pages/contact-us'));
+const Payment = React.lazy(()=> import('./pages/payment'));
 
 const App = () =>{
+
+  console.log({
+    BASE_URL,
+    Authorization: `Bearer ${localStorage.getItem('@auth_token')}` 
+  });
+
+  useEffect(()=>{
+
+    Axios.defaults.baseURL = BASE_URL;
+    Axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('@auth_token')}` }
+  })
+
   return(
       <Router>
         <Routes>
-          <Route exact path='/' element={<Home />} />
+          <Route exact path='/' element={
+          // <Home />
+          localStorage.getItem('@auth_token')=== 'null' ? <OTPSignIN /> : <Home />
+        } />
+          {/* <Route path='/' element={<OTPSignIN />} />
+          <Route path='/home' element={<Home />} /> */}
           <Route path='/lightining-deals' element={<LightiningDeals />} />
           <Route path='/destination-page' element={<DestinationPage />} />
           <Route path='/profile-page' element={<ProfilePage />} />
@@ -49,6 +69,7 @@ const App = () =>{
           <Route path='/mybookings' element={<MyBookings />} />
           <Route path='/best-dealss' element={<BestDDeals />} />
           <Route path='/contact-us' element={<ContactUs />} />
+          <Route path='/payment' element={<Payment />} />
         </Routes>
       </Router>
   )

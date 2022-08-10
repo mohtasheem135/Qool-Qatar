@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
-import { getPackages } from '../../api_utils';
-import { useQuery } from 'react-query';
+// import { getPackages } from '../../api_utils';
+// import { useQuery } from 'react-query';
 
 
-// const data = [
+// const dataa = [
 // 	{
 // 		id: 1,
 // 		image: require('../../assets/images/a1.png'),
@@ -40,7 +40,7 @@ import { useQuery } from 'react-query';
 // 	},
 // ]
 
-// const luxury = data.map(l => {
+// const luxury = dataa.map(l => {
 //     return(
 //         <div className="pick-box">
 //             <a href="/destination-page">
@@ -51,7 +51,7 @@ import { useQuery } from 'react-query';
 //     )
 // })
 
-const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
+const LuxuryPicks = ({ data }) => {
 
 
     var settings = {
@@ -97,7 +97,7 @@ const LuxuryPicks = ({ data, isLoading, isSuccess, isError }) => {
                     <Col lg={12}>
                         <Slider {...settings}>
                             {/* {luxury} */}
-                            {isSuccess == true ? data.payload.luxuryPicks.map((e) => {
+                            {data.error == false ? data.payload.luxuryPicks.map((e) => {
                                 // console.log(e.isTopPicks)
                                 // if(e.isLuxuryPicks==true){
                                     return (

@@ -10,7 +10,8 @@ import "react-phone-number-input/style.css";
 import OtpInput from 'react-otp-input';
 import { MdOutlineCancel } from 'react-icons/md';
 import { IoIosArrowRoundBack } from 'react-icons/io';
-import axios from 'axios';
+import Axios from 'axios';
+import { BASE_URL } from '../api_utils';
 
 
 
@@ -24,10 +25,14 @@ const OTPSignIN = () => {
   const [otpPage, setOtpPage] = useState(false);
   const [profilePage, setProfilePage] = useState(false);
   const [OTP, setOTP] = useState("");
-  const [code, setCode] = useState('QA');
-  const [bool, setBool] = useState(false);
+  const [code, setCode] = useState('IN');
+
+  const [token, setToken] = useState('');
 
   const [user1, setUser1] = useState({});
+
+  const [lat, setLat] = useState('')
+  const [lng, setLng] = useState('')
 
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -92,7 +97,7 @@ const OTPSignIN = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        navigate('/profile-page')
+        navigate('/profile-page?tab=editProfile')
         window.location.reload();
       });
 
@@ -103,21 +108,17 @@ const OTPSignIN = () => {
 
 
   useEffect(() => {
+
     navigator.geolocation.getCurrentPosition(function (position) {
-      fetch(`http://api.geonames.org/findNearbyPlaceNameJSON?lat=${position.coords.latitude}&lng=${position.coords.longitude}&username=azad1350`)
+      setLat(position.coords.latitude)
+      setLng(position.coords.longitude)
+      fetch(`https://api.geonames.org/findNearbyPlaceNameJSON?lat=${position.coords.latitude}&lng=${position.coords.longitude}&username=azad1350`)
         .then((response) => response.json())
         .then(data => {
           console.log(data.geonames[0].countryCode)
           setCode(data.geonames[0].countryCode)
         });
     });
-
-    fetch(`https://qoolqatar.com/api/v1/admin/getall/users`)
-      .then((response2) => response2.json())
-      .then(user => {
-        setUser1(user);
-      });
-
 
 
   }, [])
@@ -145,31 +146,32 @@ const OTPSignIN = () => {
       // console.log(phoneNumber)
       const appVerifier = window.recaptchaVerifier;
       firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-        .then((confirmationResult) => {
+        .then(async (confirmationResult) => {
           window.confirmationResult = confirmationResult;
           console.log("OTP has been sent")
-          Object.keys(user1.payload).map((id, index) => {
-            if (user1.payload[id].phoneNumber === number) {
-              console.log(user1.payload[id]._id + "   User Alredy Registerd")
-              localStorage.setItem("userID", user1.payload[id]._id)
-              localStorage.setItem('profilePic', user1.payload[id].profilePic)
-              setBool(true)
+
+          const token = await firebase.auth().currentUser.getIdToken();
+          console.log({ token })
+          // setting tokenin localStorage
+          // await
+          localStorage.setItem('@auth_token', token);
+          Axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
+          console.log(Axios.defaults.headers.common['Authorization']);
+
+          // Getting Current Profile Data
+          const { data } = await Axios.get(`/profile/self`);
+          localStorage.setItem('Profile_Data', JSON.stringify(data));
+
+          if (data.error == false) {
+            
+            // Getting Home Data
+            const home = await Axios.get(`/customer/home?lat=${lat}&lng=${lng}`);
+            // const home = await axios.get(`${BASE_URL}/customer/home?lat=22.8046&lng=86.2029`);
+            localStorage.setItem('Home_Data',JSON.stringify(home))
+            
+          }
 
 
-              const token = firebase.auth().currentUser.getIdToken();
-              console.log({ token })
-              // setting tokenin localStorage
-              // await
-              localStorage.setItem('@auth_token', token);
-
-              axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
-
-              console.log(axios.defaults.headers.common['Authorization']);
-
-              const { data } = axios.get('/profile/self');
-
-            }
-          })
         }).catch((error) => {
           // Error; SMS not sent
           // ...
@@ -182,7 +184,7 @@ const OTPSignIN = () => {
 
   }
 
-  const handleOTP = (e) => {
+  const handleOTP = async (e) => {
     // console.log("k"+OTP)
     setOtpPage(false)
     e.preventDefault()
@@ -190,41 +192,33 @@ const OTPSignIN = () => {
     console.log(code)
     window.confirmationResult.confirm(code).then((result) => {
       const user = result.user;
-      localStorage.setItem('otp_signIn', "Successfull")
-
-      if (bool == true) {
-        navigate('/profile-page?tab=editProfile');
 
 
+      if (JSON.parse(localStorage.getItem('Profile_Data')).error) {
+        // Send to profile creation page
+        setOtpPage(false);
+        setNumberPage(false)
+        setProfilePage(true)
       } else {
-        setProfilePage(true);
+        // Redirect to Home Page
+        
+        console.log(JSON.parse(localStorage.getItem('Home_Data')))
+        localStorage.setItem('otp_signIn', "Successfull")
+        // navigate('/profile-page?tab=editProfile')
+        navigate('/')
+        window.location.reload()
+        // The data.payload will be stored in context or localstorage
       }
-
 
     }).catch((error) => {
       // User couldn't sign in (bad verification code?)
       // ...
+      console.log("Error")
+      localStorage.setItem('@auth_token', null);
+      localStorage.setItem('Home_Data', null);
+      alert("Try Again ")
+      window.location.reload();
     });
-  }
-
-  const resend = (e) => {
-    configureCaptcha()
-    const phoneNumber = number
-    console.log(phoneNumber)
-    const appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-      .then((confirmationResult) => {
-        // SMS sent. Prompt user to type the code from the message, then sign the
-        // user in with confirmationResult.confirm(code).
-        window.confirmationResult = confirmationResult;
-        console.log("OTP has been sent")
-        // ...
-      }).catch((error) => {
-        // Error; SMS not sent
-        // ...
-        console.log(error)
-        console.log("SMS not sent")
-      });
   }
 
   const handelIcon_1 = (e) => {
@@ -235,7 +229,8 @@ const OTPSignIN = () => {
 
   const handelIcon_2 = (e) => {
     e.preventDefault()
-    // setClick(false)
+    setNumberPage(true)
+    setOtpPage(false)
   }
 
 

@@ -1,11 +1,60 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
+import StripeCheckout from 'react-stripe-checkout';
+import Axios from 'axios';
+import "../assets/css/Pages.css"
 const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
 
 const Checkout = () => {
     useEffect(() => {
         document.title = "Checkout - Qool Qatar";
+
+        console.log(localStorage.getItem('booking_FirstName'))
+        console.log(localStorage.getItem('booking_LastName'))
+        console.log(localStorage.getItem('booking_Email'))
+        console.log(localStorage.getItem('booking_Mobile'))
+        console.log(localStorage.getItem('booking_Guests'))
+        console.log(process.env.REACT_APP_PUBLISABLE_KEY)
+        // fetchD()
+        
+        
       }, []);
+      const fetchD= async ()=> {
+        const {data} = await Axios.get(`/profile/self`)
+        console.log(data);
+      }
+
+      const [product, setProduct] = useState({
+          name: "Booking Event Name",
+          price: '100',
+      })
+
+      const makePayment = token => {
+        // const formData = new FormData();
+        // formData.append('token', token)
+        // formData.append('product', product)
+          const body ={
+              token,
+              product
+          }
+
+          const headers = {
+              "Content-Type": "application/json"
+          }
+          
+
+          fetch('https://qoolqatar.com/api/v1/payment/init', {
+              method: "POST",
+              headers,
+              body: JSON.stringify(body)
+          })
+          .then(response => {
+              console.log(response)
+              const {status} = response
+              console.log(status)
+          })
+          .catch(err => {console.log(err)})
+      }
 
     return (
         <MainPage>
@@ -52,7 +101,7 @@ const Checkout = () => {
                                     </p>
                                     <p className="total-price">
                                         <span>Total:</span>
-                                        <span>$100.00</span>
+                                        <span>${product.price}</span>
                                     </p>
                                 </div>
                             </div>
@@ -69,12 +118,12 @@ const Checkout = () => {
                             <div className="booking-form sub-info1">
                                 <div>
                                     <p className="detail1">Your Details</p>
-                                    <p className="name">Robert Fox</p>
-                                    <p className="contact">robertfox@gmail.com</p>
-                                    <p className="contact">+974 9876543210</p>
+                                    <p className="name">{localStorage.getItem('booking_FirstName')} {localStorage.getItem('booking_LastName')}</p>
+                                    <p className="contact">{localStorage.getItem('booking_Email')}</p>
+                                    <p className="contact">{localStorage.getItem('booking_Mobile')}</p>
                                 </div>
                                 <div className="no-guest">
-                                    <p className="no1">02</p>
+                                    <p className="no1">{localStorage.getItem('booking_Guests')}</p>
                                     <p className="no2">No. of Guests</p>
                                 </div>
                             </div>
@@ -84,7 +133,20 @@ const Checkout = () => {
                         <Col lg={2}></Col>
                         <Col lg={10}>
                             <div className="booking-form">
-                                <a href='/booking-after-payment'><Button className="payment-btn">Proceed to Payment</Button></a>
+                                {/* <a href='/booking-after-payment'><Button className="payment-btn">Proceed to Payment</Button></a> */}
+                                {/* <a href='/payment'><Button className="payment-btn">Proceed to Payment</Button></a> */}
+                                <StripeCheckout
+                                name="Qool Qatar"
+                                description="Big Data Stuff"
+                                image={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic}
+                                ComponentClass="mess"
+                                stripeKey={process.env.REACT_APP_PUBLISABLE_KEY}
+                                token={makePayment}
+                                amount={product.price*100}
+                                >
+                                    <button className='payment-btn' style={{backgroundColor: '#A2195B', border: 'none', color:'white'}}>Proceed to pay</button>
+                                </StripeCheckout>
+                                {/* <button onClick={fetchD}>Click</button> */}
                             </div>
                         </Col>
                     </Row>

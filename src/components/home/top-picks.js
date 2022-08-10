@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
 
@@ -52,7 +52,7 @@ import Slider from "react-slick";
 
 
 
-const TopPicks = ({ data, isLoading, isSuccess, isError }) => {
+const TopPicks = ({ data }) => {
 
 
     var settings = {
@@ -97,9 +97,9 @@ const TopPicks = ({ data, isLoading, isSuccess, isError }) => {
                     <Col lg={12}>
                         <Slider {...settings}>
                             {/* {picks} */}
-                            {isSuccess == true ? data.payload.topPicks.map((e) => {
-                                // console.log(e.isTopPicks)
-                                // if (e.isTopPicks == true) {
+
+                            {data.error == false ? data.payload.topPicks.map((e) => {
+
                                 return (
                                     <div key={e} className="pick-box">
                                         <a onClick={event => jj(event, e)} href='/destination-page' >
@@ -109,7 +109,6 @@ const TopPicks = ({ data, isLoading, isSuccess, isError }) => {
                                         <p className="pick-title">{e.name}</p>
                                     </div>
                                 )
-                                // }
 
                             }) : null}
                         </Slider>

@@ -1,11 +1,11 @@
 import mapboxGl from 'mapbox-gl';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'reactstrap';
-// import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import "../assets/css/Pages.css"
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 const ExperiencePlace = React.lazy(() => import('../components/destination-page/experience-place'));
+
 
 
 
@@ -17,6 +17,7 @@ const DestinationPage = () => {
 
 
     useEffect(() => {
+        
         document.title = "Destination Page - Qool Qatar";
         setData(JSON.parse(localStorage.getItem('topPicks_destination')))
 
@@ -31,17 +32,6 @@ const DestinationPage = () => {
             // projection: 'globe' // display the map as a 3D globe
         }, { attributionControl: false }
         )
-
-        // Marker --------\
-
-        // cord.map((e) => {
-        //     const marker = new mapboxGl.Marker({ color: "#ff0000", draggable: false })
-        //         .setLngLat([e.long, e.lat])
-        //         .setPopup(new mapboxGl.Popup().setHTML("<p>Hello World!</p>"))
-        //         .addTo(map);
-        //     marker.togglePopup();
-        //     marker.setRotation(10);
-        // })
 
         const marker = new mapboxGl.Marker({ color: "#ff0000", draggable: false })
             .setLngLat([localStorage.getItem('topPicks_destination_lat'), localStorage.getItem('topPicks_destination_lng')])

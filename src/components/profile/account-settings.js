@@ -7,6 +7,7 @@ const AccountSettings = () => {
     function logOut() {
         localStorage.removeItem('otp_signIn')
         localStorage.removeItem('userID')
+        localStorage.setItem('@auth_token', null);
         navigate('/')
         window.location.reload()
     }

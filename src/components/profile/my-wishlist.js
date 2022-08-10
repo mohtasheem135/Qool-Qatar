@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 
 const data = [
@@ -40,6 +40,9 @@ const wishlists = data.map(w => {
 })
 
 const MyWishlist = () => {
+    useEffect(() => {
+        // console.log(JSON.parse(localStorage.getItem('Profile_Data')).payload.wishlists)
+    }, [])
     return (
         <div className="my-wishlist">
             <h3>My Wishlist</h3>

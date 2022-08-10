@@ -1,20 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 import { Input } from 'reactstrap';
+import Axios from 'axios';
 import "../../assets/css/Pages.css"
 
 const EditProfile = () => {
 
     const [selectedImage, setSelectedImage] = useState(null);
-    const [user1, setUser1] = useState('');
     const [initialState, setInitialState] = useState({});
     const { name, email, mobile, profilePic } = initialState;
 
+    const [imgURL, setImgURL] = useState('')
+
+    console.log(JSON.parse(localStorage.getItem('Profile_Data')).payload.name)
+
+
+
     async function handelImgChange(e) {
         console.log(e.target.files[0]);
+        const formData = new FormData();
+        formData.append('image', e.target.files[0])
         setSelectedImage(e.target.files[0]);
-
+        const { data } = await Axios.post('/upload/assets/image', formData);
+        setImgURL(data.payload);
+        // console.log({data})
     };
+
+    const handleSubit = async (e) => {
+        e.preventDefault()
+
+        const { data } = await Axios.post('profile/update', {
+            // name: JSON.parse(localStorage.getItem('Profile_Data')).payload.name,
+            name: 'ME',
+            phoneNumber: JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber,
+            gender: 'male',
+            email: JSON.parse(localStorage.getItem('Profile_Data')).payload.email,
+            profilePic: imgURL,
+            uid: JSON.parse(localStorage.getItem('Profile_Data')).payload.uid,
+        });
+        // console.log(data.payload.profilePic)
+        // console.log(data)
+    }
 
     const handelInputChange = (e) => {
         let { name, value } = e.target;
@@ -24,23 +50,6 @@ const EditProfile = () => {
         })
     }
 
-    useEffect(() => {
-        fetch(`https://qoolqatar.com/api/v1/admin/getall/users`)
-            .then((response2) => response2.json())
-            .then(user => {
-                setUser1(user);
-                Object.keys(user.payload).map((id, index) => {
-                    if (user.payload[id]._id === localStorage.getItem('userID')) {
-                        initialState.name = user.payload[id].name
-                        initialState.email = user.payload[id].email
-                        initialState.mobile = user.payload[id].phoneNumber
-                        initialState.profilePic = user.payload[id].profilePic
-                    }
-
-                })
-            });
-    }, [])
-
     return (
         <div className="edit-profile">
             <h3>Edit Profile</h3>
@@ -49,7 +58,8 @@ const EditProfile = () => {
                     <div className="rounded-box">
                         <div className="outer">
                             {/* {selectedImage === null ? <img className="outer" src={require('../../assets/images/Group2402.png')} alt="user" className="user" /> : */}
-                            {selectedImage === null ? <img className="outer" src={initialState.profilePic} alt="user" /> :
+                            {/* {selectedImage === null ? <img className="outer" src={initialState.profilePic} alt="user" /> : */}
+                            {selectedImage === null ? <img className="outer" src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="user" /> :
                                 <img className="outer" src={URL.createObjectURL(selectedImage)} alt="user" />
                             }
                             <div className="inner">
@@ -78,7 +88,7 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="text"
                         name="name"
-                        value={initialState.name}
+                        value={JSON.parse(localStorage.getItem('Profile_Data')).payload.name}
                         placeholder="Robert Fox"
                     />
                 </FormGroup>
@@ -88,7 +98,7 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="email"
                         name="email"
-                        value={initialState.email}
+                        value={JSON.parse(localStorage.getItem('Profile_Data')).payload.email}
                         placeholder="robertfox@gmail.com"
                     />
                 </FormGroup>
@@ -98,10 +108,12 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="text"
                         name="mobile"
-                        value={initialState.mobile}
+                        value={JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber}
                         placeholder="+974 987654321"
                     />
                 </FormGroup>
+                <Button onClick={handleSubit} className='contact-form-btn' >Submit</Button>
+                {/* <Input  type="submit" value="Submit" className="review-btn" /> */}
             </Form>
         </div>
     )

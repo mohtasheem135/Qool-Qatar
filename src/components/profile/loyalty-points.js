@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const data = [
 	{
@@ -47,6 +47,9 @@ const received = data.map(r => {
 })
 
 const LoyaltyPoints = () => {
+    useEffect(() => {
+        console.log(JSON.parse(localStorage.getItem('Profile_Data')).payload.coinHistory)
+    }, [])
     return (
         <div className="loyalty-points">
             <h3>Loyalty Points</h3>

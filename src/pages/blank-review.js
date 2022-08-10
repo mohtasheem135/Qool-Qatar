@@ -2,18 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating'
 import { Col, Container, Row, Form, FormGroup, Input, Label } from 'reactstrap';
+import Axios from 'axios';
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 
 const BlankReview = () => {
     const navigate = useNavigate()
+
+
+    const [image, setImage] = useState('')
+
     useEffect(() => {
         document.title = "Blank Review - Qool Qatar";
+
+        // Log the key/value pairs
+        console.log(Axios.defaults)
+        // console.log(JSON.parse(localStorage.getItem('Profile_Data')).payload.uid)
     }, []);
 
     const [rating, setRating] = useState(0) // initial rating value
 
     const [initialState, setInitialState] = useState({});
-  const { title, description } = initialState;
+    const { title, description } = initialState;
 
     const handleInpChange = (e) => {
         let { name, value } = e.target;
@@ -23,33 +32,41 @@ const BlankReview = () => {
         })
     }
 
+    const handleImg = async (e) => {
+        // setSelectedFile(e.target.files[0])
+        // console.log(e.target.files[0])
+
+        var datas = new FormData();
+        datas.append('image', e.target.files[0])
+        const { data } = await Axios.post('/upload/assets/image', datas);
+        setImage(data.payload)
+    }
+    // const [selectedFile, setSelectedFile] = React.useState(null);
+
+
     const handleRating = (rate) => {
-        setRating(rate)
-        console.log(rate / 20)
-        // other logic
+        setRating(rate / 20)
     }
 
-    async function handleSubmit(e) {
-        navigate('/blank-review1')
-        window.location.reload();
-        // e.preventDefault()
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //           title: initialState.title,
-        //           description: initialState.description,
-        //           reviewCount:rating,
-        //         //   userId: "00000100000"
-        //           userId: "12313131",
-        //           name: "Mohtasheem -1",
-        //           phoneNumber: "+917091957007"
-        //     })
-        // };
-        // fetch('http://159.65.152.119/api/v1/profile/create', requestOptions)
-        //     .then(response => response.json())
-        //     // .then(data => this.setState({ postId: data.id }));
-        //     .then(data => console.log(data));
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('userId', JSON.parse(localStorage.getItem('Profile_Data')).payload.uid)
+        formData.append('title', initialState.title)
+        formData.append('description', initialState.description)
+        formData.append('reviewCount', rating)
+        formData.append('photoUrl', image)
+        formData.append('bookingName', "Some Bookings (ME)")
+        formData.append('bookingPhotoUrl', "https://asdasd.sgp1.cdn.digitaloceanspaces.com/assets/2e87ee13-3a12-4cf9-8f1a-95ed414a440crn_image_picker_lib_temp_bf9b9b9f-832d-48a6-ad00-19abebdae1ac.jpg")
+
+        // View the formData
+        // for (const value of formData.values()) {
+        //     console.log(value);
+        // }
+
+        const { data } =await Axios.post('customer/add/review', formData);
+        console.log({ data })
+
     }
 
     return (
@@ -82,7 +99,7 @@ const BlankReview = () => {
                             <div className="review-form">
                                 <p className="name">Souq Waqif</p>
                                 <p className="txt">Your Reviews</p>
-                                <Form>
+                                <Form onSubmit={handleSubmit}>
                                     <FormGroup>
                                         <Label>Write a headline for your review here</Label>
                                         <Input type="text" name="title" value={title} onChange={handleInpChange} />
@@ -93,11 +110,11 @@ const BlankReview = () => {
                                     </FormGroup>
                                     <FormGroup>
                                         <Label className="add-photo">Add a Photo/Video</Label>
-                                        <Input type="file" />
+                                        <Input onChange={handleImg} name='photoURL' type="file" />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input onClick={handleSubmit}  type="submit" value="Submit" className="review-btn" />
-                                        
+                                        <Input type="submit" value="Submit" className="review-btn" />
+
                                     </FormGroup>
                                 </Form>
                                 {/* <button onClick={handleSubmit}>Submit</button> */}

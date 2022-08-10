@@ -7,22 +7,7 @@ import "../../assets/css/Pages.css"
 
 const Header = () => {
 
-    const [initialState, setInitialState] = useState({});
-    const { profilePic } = initialState;
-
-    useEffect(() => {
-        if (localStorage.getItem('userID') !== '') {
-            fetch(`https://qoolqatar.com/v1/admin/getall/users`)
-                .then((response2) => response2.json())
-                .then(user => {
-                    Object.keys(user.payload).map((id, index) => {
-                        if (user.payload[id]._id === localStorage.getItem('userID')) {
-                            initialState.profilePic = user.payload[id].profilePic
-                        }
-                    })
-                });
-        }
-    }, [])
+    
 
     const jj=(e)=> {
         e.preventDefault()
@@ -47,7 +32,7 @@ const Header = () => {
                                     <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                                         {/* <img src={require('../../assets/images/Group2402.png')} alt="signIn" /> Sign in/Sign up */}
                                         {localStorage.getItem('otp_signIn') == "Successfull" ?
-                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={localStorage.getItem('profilePic')} alt="profile" /></a>
+                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="profile" /></a>
                                             // <a href='/profile-page'><img className='profile-img' src={initialState.profilePic} alt="profile" /></a>
                                             :
                                             <a className='a-sigin' href='/signIn'><img className='img_1' src={require('../../assets/images/Group2402.png')} alt="signIn" /><p className='p-sigin-text'>Sign in/Sign up</p></a>
@@ -81,7 +66,7 @@ const Header = () => {
                                     <div className='profile-img-div'>
                                         {/* <img onClick={handleClick} src={require('../../assets/images/Ellipse1.png')} alt="profile" /> */}
                                         {localStorage.getItem('otp_signIn') == "Successfull" ?
-                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={localStorage.getItem('profilePic')} alt="profile" /></a>
+                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="profile" /></a>
                                             // <a href='/profile-page'><img className='profile-img' src={initialState.profilePic} alt="profile" /></a>
                                             :
                                             <a href='/signIn'><img className='img_1' src={require('../../assets/images/Group2402.png')} alt="signIn" /></a>
