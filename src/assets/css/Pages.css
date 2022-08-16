@@ -443,7 +443,19 @@
     }
 }
 
-.mess {
-    border: 2px solid red;
-    width: 100%;
+/* About-Event */
+
+.aboutMap{
+    width: 380px;
+    margin-top: -10px;
+    height: 230px;
+}
+
+/* React-Loader-Spinner */
+.spokes{
+    margin: auto;
+}
+
+.videoFrame{
+    border-radius: 20px;
 }

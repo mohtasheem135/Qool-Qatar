@@ -4,58 +4,58 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 
-const data = [
-	{
-		id: 1,
-		image: require('../../assets/images/u1.png'),
-		title: "Event Name",
-        date: "Sat, 1 Oct"
-	},
-	{
-		id: 2,
-		image: require('../../assets/images/u2.png'),
-		title: "Event Name",
-        date: "Sat, 1 Oct"
-	},
-	{
-		id: 3,
-		image: require('../../assets/images/u3.png'),
-		title: "Event Name",
-        date: "Sat, 1 Oct"
-	},
-    {
-		id: 4,
-		image: require('../../assets/images/u4.png'),
-		title: "Event Name",
-        date: "Sat, 1 Oct"
-	},
-    {
-		id: 5,
-		image: require('../../assets/images/u5.png'),
-		title: "Event Name",
-        date: "Sat, 1 Oct"
-	},
-    {
-		id: 6,
-		image: require('../../assets/images/u1.png'),
-		title: "Event Name",
-        date: "Sat, 1 Oct"
-	},
-]
+// const data = [
+// 	{
+// 		id: 1,
+// 		image: require('../../assets/images/u1.png'),
+// 		title: "Event Name",
+//         date: "Sat, 1 Oct"
+// 	},
+// 	{
+// 		id: 2,
+// 		image: require('../../assets/images/u2.png'),
+// 		title: "Event Name",
+//         date: "Sat, 1 Oct"
+// 	},
+// 	{
+// 		id: 3,
+// 		image: require('../../assets/images/u3.png'),
+// 		title: "Event Name",
+//         date: "Sat, 1 Oct"
+// 	},
+//     {
+// 		id: 4,
+// 		image: require('../../assets/images/u4.png'),
+// 		title: "Event Name",
+//         date: "Sat, 1 Oct"
+// 	},
+//     {
+// 		id: 5,
+// 		image: require('../../assets/images/u5.png'),
+// 		title: "Event Name",
+//         date: "Sat, 1 Oct"
+// 	},
+//     {
+// 		id: 6,
+// 		image: require('../../assets/images/u1.png'),
+// 		title: "Event Name",
+//         date: "Sat, 1 Oct"
+// 	},
+// ]
 
-const upcoming = data.map(u => {
-    return(
-        <div key={u} className="pick-box">
-            <a href="/about-event">
-                <img src={u.image} alt="event" />
-            </a>
-            <p className="pick-title">{u.title}</p>
-            <p className="date-box"><img src={require('../../assets/images/Calendar.png')} alt="calendar" /> {u.date}</p>
-        </div>
-    )
-})
+// const upcoming = data.map(u => {
+//     return(
+//         <div key={u} className="pick-box">
+//             <a href="/about-event">
+//                 <img src={u.image} alt="event" />
+//             </a>
+//             <p className="pick-title">{u.title}</p>
+//             <p className="date-box"><img src={require('../../assets/images/Calendar.png')} alt="calendar" /> {u.date}</p>
+//         </div>
+//     )
+// })
 
-const UpcomingEvents = ({ data, isLoading, isSuccess, isError }) => {
+const UpcomingEvents = ({ data }) => {
 
     var settings = {
         dots: false,
@@ -76,6 +76,12 @@ const UpcomingEvents = ({ data, isLoading, isSuccess, isError }) => {
         ]
     };
 
+    const events = (event, param) => {
+        console.log(param);
+        localStorage.setItem('upComingEvents_aboutEvent', JSON.stringify(param));
+        
+    }
+
     return (
         <section className="top-picks activities-near upcoming-box">
             <Container>
@@ -90,18 +96,18 @@ const UpcomingEvents = ({ data, isLoading, isSuccess, isError }) => {
                 <Row>
                     <Col>
                         <Slider {...settings}>
-                            {upcoming}
-                            {/* {isSuccess == true ? data.event.map((e) => {
-                                return(
-                                    <div className="pick-box">
-                                        <a href="/">
-                                            <img src={e.event_image} alt="event" />
+                            {/* {upcoming} */}
+                            {data.error == false ? data.payload.upcommingPackages.map((e) => {
+                                return (
+                                    <div key={e} className="pick-box">
+                                        <a onClick={event => events(event, e)} href='/about-event' >
+                                            <img src={e.photoUrl} alt="pick" />
                                         </a>
-                                        <p className="pick-title">{e.event_name}</p>
-                                        <p className="date-box"><img src={require('../../assets/images/Calendar.png')} alt="calendar" /> {e.start_time}</p>
+                                        <p className="pick-title">{e.name}</p>
+                                        {/* <p className="pick-title">{e.eventDate}</p> */}
                                     </div>
                                 )
-                            }) : null} */}
+                            }) : null}
                         </Slider>
                     </Col>
                 </Row>

@@ -13,6 +13,7 @@ const PackagePage = React.lazy(()=> import('./pages/package-page'));
 
 const App = () =>{
   return(
+    
       <Router>
         <Routes>
           <Route exact path='/' element={<Home />} />

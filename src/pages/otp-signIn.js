@@ -27,9 +27,7 @@ const OTPSignIN = () => {
   const [OTP, setOTP] = useState("");
   const [code, setCode] = useState('IN');
 
-  const [token, setToken] = useState('');
-
-  const [user1, setUser1] = useState({});
+  const [profileData, setProfileData] = useState('');
 
   const [lat, setLat] = useState('')
   const [lng, setLng] = useState('')
@@ -151,25 +149,17 @@ const OTPSignIN = () => {
           console.log("OTP has been sent")
 
           const token = await firebase.auth().currentUser.getIdToken();
-          console.log({ token })
+          // console.log({ token })
           // setting tokenin localStorage
           // await
           localStorage.setItem('@auth_token', token);
           Axios.defaults.headers.common = { Authorization: `Bearer ${token}` };
-          console.log(Axios.defaults.headers.common['Authorization']);
+          // console.log(Axios.defaults.headers.common['Authorization']);
 
           // Getting Current Profile Data
           const { data } = await Axios.get(`/profile/self`);
-          localStorage.setItem('Profile_Data', JSON.stringify(data));
-
-          if (data.error == false) {
-            
-            // Getting Home Data
-            const home = await Axios.get(`/customer/home?lat=${lat}&lng=${lng}`);
-            // const home = await axios.get(`${BASE_URL}/customer/home?lat=22.8046&lng=86.2029`);
-            localStorage.setItem('Home_Data',JSON.stringify(home))
-            
-          }
+          setProfileData(data);
+          // localStorage.setItem('Profile_Data', JSON.stringify(data));
 
 
         }).catch((error) => {
@@ -177,6 +167,7 @@ const OTPSignIN = () => {
           // ...
           console.log(error)
           console.log("SMS not sent")
+          alert("sms not sent.....refresh the page and try again")
         });
     } else {
       alert('Enter the Mobile Number')
@@ -194,18 +185,18 @@ const OTPSignIN = () => {
       const user = result.user;
 
 
-      if (JSON.parse(localStorage.getItem('Profile_Data')).error) {
+      // if (JSON.parse(localStorage.getItem('Profile_Data')).error) {
+      if (profileData.error) {
         // Send to profile creation page
         setOtpPage(false);
         setNumberPage(false)
         setProfilePage(true)
       } else {
         // Redirect to Home Page
-        
-        console.log(JSON.parse(localStorage.getItem('Home_Data')))
-        localStorage.setItem('otp_signIn', "Successfull")
+
+        // console.log(JSON.parse(localStorage.getItem('Home_Data')))
         // navigate('/profile-page?tab=editProfile')
-        navigate('/')
+        // navigate('/')
         window.location.reload()
         // The data.payload will be stored in context or localstorage
       }

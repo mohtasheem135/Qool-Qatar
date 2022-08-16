@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 import { Input } from 'reactstrap';
 import Axios from 'axios';
@@ -12,9 +12,10 @@ const EditProfile = () => {
 
     const [imgURL, setImgURL] = useState('')
 
-    console.log(JSON.parse(localStorage.getItem('Profile_Data')).payload.name)
+    // console.log(JSON.parse(localStorage.getItem('Profile_Data')).payload.name)
 
 
+    
 
     async function handelImgChange(e) {
         console.log(e.target.files[0]);
@@ -38,8 +39,6 @@ const EditProfile = () => {
             profilePic: imgURL,
             uid: JSON.parse(localStorage.getItem('Profile_Data')).payload.uid,
         });
-        // console.log(data.payload.profilePic)
-        // console.log(data)
     }
 
     const handelInputChange = (e) => {

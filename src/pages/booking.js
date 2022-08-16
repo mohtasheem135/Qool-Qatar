@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import NumericInput from 'react-numeric-input';
 import { useNavigate } from 'react-router';
@@ -7,8 +7,13 @@ const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 const Booking = () => {
     const navigate = useNavigate();
 
+    const [data, setData] = useState('');
+
     useEffect(() => {
         document.title = "Booking - Qool Qatar";
+
+        setData(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
+
     }, []);
 
     const handleClick = () => {
@@ -36,7 +41,7 @@ const Booking = () => {
                             <ul className="breadcrumb">
                                 <li>Events</li>
                                 <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow" /></li>
-                                <li>Qatar Motor Show</li>
+                                <li>{data.name}</li>
                                 <li><img src={require('../assets/images/chevron-right.png')} alt="rightarrow" /></li>
                                 <li>Booking</li>
                             </ul>
@@ -44,13 +49,13 @@ const Booking = () => {
                     </Row>
                     <Row className="about-info">
                         <Col lg={3}>
-                            <img src={require('../assets/images/event1.png')} className="booking-img" alt="big" />
-                            <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> Sat, 1 Oct</p>
-                            <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> West Bay, Doha, Qatar</p>
+                            <img src={data.photoUrl} className="booking-img" alt="big" />
+                            <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> {data.eventDate}</p>
+                            <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> {data.address}</p>
                         </Col>
                         <Col lg={9}>
                             <div className="booking-form">
-                                <p className="title">Qatar Motor Show</p>
+                                <p className="title">{data.name}</p>
                                 <p className="sub">Your Details</p>
                                 <p className="des">Please Tell us about yourself</p>
                                 <Form onSubmit={handleSubmit}>

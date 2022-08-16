@@ -4,15 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Nav, Offcanvas, Form, FormGroup } from 'react-bootstrap';
 import "../../assets/css/Pages.css"
+import Axios from 'axios';
 
 const Header = () => {
-
-    
-
-    const jj=(e)=> {
-        e.preventDefault()
-    }
-
     return (
         <Fragment>
             <header className="sticky-top">
@@ -30,13 +24,7 @@ const Header = () => {
                             >
                                 <Offcanvas.Header closeButton>
                                     <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                                        {/* <img src={require('../../assets/images/Group2402.png')} alt="signIn" /> Sign in/Sign up */}
-                                        {localStorage.getItem('otp_signIn') == "Successfull" ?
-                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="profile" /></a>
-                                            // <a href='/profile-page'><img className='profile-img' src={initialState.profilePic} alt="profile" /></a>
-                                            :
-                                            <a className='a-sigin' href='/signIn'><img className='img_1' src={require('../../assets/images/Group2402.png')} alt="signIn" /><p className='p-sigin-text'>Sign in/Sign up</p></a>
-                                        }
+                                        <a href='/profile-page?tab=editProfile'><img className='profile-img' src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="profile" /></a>
                                     </Offcanvas.Title>
                                 </Offcanvas.Header>
                                 <Offcanvas.Body>
@@ -51,10 +39,10 @@ const Header = () => {
                                         </FormGroup>
                                     </Form>
                                     <Nav className="justify-content-end">
-                                        <a  href='/profile-page?tab=notifications' className="meta-icon bbb"><img className='bbb' src={require('../../assets/images/notification.png')} alt="notification" /></a>
+                                        <a href='/profile-page?tab=notifications' className="meta-icon bbb"><img className='bbb' src={require('../../assets/images/notification.png')} alt="notification" /></a>
                                         <a href="/profile-page?tab=loyaltyPoints" className="crown-box"><img src={require('../../assets/images/emojione-v1_crown.png')} alt="crown" /> 250</a>
-                                        <a href='/profile-page?tab=myBookings'  className="meta-icon"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" /></a>
-                                        <a  href='/profile-page?tab=myWishlist' className="meta-icon"><img src={require('../../assets/images/hHeart.png')} alt="heart" /></a>
+                                        <a href='/profile-page?tab=myBookings' className="meta-icon"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" /></a>
+                                        <a href='/profile-page?tab=myWishlist' className="meta-icon"><img src={require('../../assets/images/hHeart.png')} alt="heart" /></a>
                                     </Nav>
                                     <Nav className="justify-content-end-1">
                                         <a href="/" className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/home_1.png')} alt="home" /><p className='mobile-nav-text'>Home</p></a>
@@ -64,17 +52,12 @@ const Header = () => {
                                         <a href='/profile-page?tab=myWishlist' className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/nNotification.png')} alt="heart" /><p className='mobile-nav-text'>My Notifications</p></a>
                                     </Nav>
                                     <div className='profile-img-div'>
-                                        {/* <img onClick={handleClick} src={require('../../assets/images/Ellipse1.png')} alt="profile" /> */}
-                                        {localStorage.getItem('otp_signIn') == "Successfull" ?
-                                            <a href='/profile-page?tab=editProfile'><img className='profile-img' src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="profile" /></a>
-                                            // <a href='/profile-page'><img className='profile-img' src={initialState.profilePic} alt="profile" /></a>
-                                            :
-                                            <a href='/signIn'><img className='img_1' src={require('../../assets/images/Group2402.png')} alt="signIn" /></a>
-                                        }
+                                        <a href='/profile-page?tab=editProfile'><img className='profile-img' src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="profile" /></a>
+
                                     </div>
                                 </Offcanvas.Body>
                             </Navbar.Offcanvas>
-                            
+
                             <a href="/" className="search-mob">
                                 <img src={require('../../assets/images/Search.png')} alt="search" />
                             </a>
@@ -82,8 +65,8 @@ const Header = () => {
                     </Navbar>
                 ))}
                 <div className='jjj' >
-                                <h1>Hellooo</h1>
-                            </div>
+                    <h1>Hellooo</h1>
+                </div>
                 <Container fluid>
                     <Row>
                         <Col lg={12}>

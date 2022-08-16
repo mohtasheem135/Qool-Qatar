@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
+// import { getSubCategory } from "../../api_utils"
+import { getSubCategory } from '../../api_utils';
+import { useQuery } from 'react-query';
 
 // const dataa = [
 //     {
@@ -43,7 +46,7 @@ import Slider from "react-slick";
 //             <a href="/destination-page">
 //                 <img src={p.image} alt="pick" />
 //             </a>
-//             <p  className="pick-title">{p.title}</p>
+//             <p className="pick-title">{p.title}</p>
 //             <p className="pick-des">{p.meta}</p>
 //         </div>
 //     )
@@ -52,7 +55,10 @@ import Slider from "react-slick";
 
 
 
-const TopPicks = ({ data }) => {
+// const TopPicks = ({ data }) => {
+const TopPicks = () => {
+    const { data, isLoading, isError, isSuccess } = useQuery('subCategory', getSubCategory);
+    
 
 
     var settings = {
@@ -76,9 +82,13 @@ const TopPicks = ({ data }) => {
 
     const jj = (event, param) => {
         console.log(param);
+        console.log(param.coordinates.lat);
+        // console.log(JSON.stringify(param.coordinates.lat));
         localStorage.setItem('topPicks_destination', JSON.stringify(param));
-        localStorage.setItem('topPicks_destination_lat', JSON.stringify(param.location.coordinates[0]));
-        localStorage.setItem('topPicks_destination_lng', JSON.stringify(param.location.coordinates[1]));
+        // localStorage.setItem('topPicks_destination_lat', JSON.stringify(param.location.coordinates[0]));
+        // localStorage.setItem('topPicks_destination_lng', JSON.stringify(param.location.coordinates[1]));
+        localStorage.setItem('topPicks_destination_lat', JSON.stringify(param.coordinates.lat));
+        localStorage.setItem('topPicks_destination_lng', JSON.stringify(param.coordinates.long));
         Object.keys(param.photos).map((id, index) => {
             console.log("gg " + param.photos[id])
         })
@@ -98,7 +108,7 @@ const TopPicks = ({ data }) => {
                         <Slider {...settings}>
                             {/* {picks} */}
 
-                            {data.error == false ? data.payload.topPicks.map((e) => {
+                            {/* {data.error == false ? data.payload.topPicks.map((e) => {
 
                                 return (
                                     <div key={e} className="pick-box">
@@ -106,6 +116,19 @@ const TopPicks = ({ data }) => {
                                             <img src={e.photoUrl} alt="pick" />
                                         </a>
 
+                                        <p className="pick-title">{e.name}</p>
+                                    </div>
+                                )
+
+                            }) : null} */}
+
+                            {isSuccess == true ? data.payload.map((e) => {
+                                return (
+                                    <div key={e} className="pick-box">
+                                        <a onClick={event => jj(event, e)} href='/destination-page' >
+                                        {/* <a onClick={event => jj(event, e)}  > */}
+                                            <img src={e.photoUrl} alt="pick" />
+                                        </a>
                                         <p className="pick-title">{e.name}</p>
                                     </div>
                                 )

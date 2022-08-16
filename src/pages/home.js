@@ -1,6 +1,5 @@
-import React from 'react';
-// import { getHomeData } from '../api_utils';
-// import { useQuery } from 'react-query';
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 const ExperienceWorld = React.lazy(() => import('../components/home/experience'));
 const LetExplore = React.lazy(() => import('../components/home/let-explore'));
@@ -11,8 +10,22 @@ const LuxuryPicks = React.lazy(() => import('../components/home/luxury-picks'));
 const UpcomingEvents = React.lazy(() => import('../components/home/upcoming-events'));
 
 const Home = () => {
-    
-    const data = JSON.parse(localStorage.getItem('Home_Data')).data
+
+    const [data, setData] = useState('');
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(async function (position) {
+
+            const { data } = await Axios.get(`/customer/home?lat=${position.coords.latitude}&lng=${position.coords.longitude}`);
+            
+            if (data.error) {
+                console.log("error")
+            } else {
+                setData(data);
+            }
+        });
+    }, [])
+
 
     return (
         <MainPage>
@@ -22,9 +35,11 @@ const Home = () => {
             <TopPicks data={data} />
             <BestDeals />
             <ActivitiesNear data={data} />
-            <LuxuryPicks data={data}  />
-            <UpcomingEvents />
+            <LuxuryPicks data={data} />
+            <UpcomingEvents data={data} />
         </MainPage>
+
+
     )
 }
 

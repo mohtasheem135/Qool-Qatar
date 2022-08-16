@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { getHomeData } from '../api_utils';
-import { useQuery } from 'react-query';
 import { FormCheck } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
@@ -14,7 +12,7 @@ const ListOfActivities = () => {
         document.title = "List Of Activities - Qool Qatar";
     }, []);
 
-    const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
+    // const { data, isLoading, isError, isSuccess } = useQuery('homeData', getHomeData);
 
     return (
         <MainPage>
@@ -36,7 +34,7 @@ const ListOfActivities = () => {
                             <div className="categories-block">
                                 <p className="head">Categories</p>
                                 <Form className="cat-form">
-                                    {isSuccess == true ? data.payload.map((e) => {
+                                    {/* {isSuccess == true ? data.payload.map((e) => {
                                         // console.log(e.isTopPicks)
                                         // if (e.isTopPicks == true) {
                                         return (
@@ -53,7 +51,7 @@ const ListOfActivities = () => {
                                         )
                                         // }
 
-                                    }) : null}
+                                    }) : null} */}
                                     {/* <FormCheck>
                                         <FormCheckLabel>Adventure Tours</FormCheckLabel>
                                         <FormCheckInput></FormCheckInput>

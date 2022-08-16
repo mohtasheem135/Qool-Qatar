@@ -33,7 +33,7 @@ const DestinationPage = () => {
         }, { attributionControl: false }
         )
 
-        const marker = new mapboxGl.Marker({ color: "#ff0000", draggable: false })
+        const marker = new mapboxGl.Marker({ color: "#A2195B", draggable: false })
             .setLngLat([localStorage.getItem('topPicks_destination_lat'), localStorage.getItem('topPicks_destination_lng')])
             .setPopup(new mapboxGl.Popup().setHTML(JSON.parse(localStorage.getItem('topPicks_destination')).name))
             .addTo(map);
