@@ -21,7 +21,7 @@ const vendorImg = data.map(v => {
 	)
 })
 
-const VendorBlock = () => {
+const VendorBlock = ({data}) => {
     var settings = {
 		dots: true,
 		lazyLoad: 'progressive',
@@ -32,6 +32,8 @@ const VendorBlock = () => {
 		slidesToShow: 1,
 		slidesToScroll: 1
 	};
+
+    console.log(data)
 
     return (
         <section className="destination-page">
@@ -68,7 +70,7 @@ const VendorBlock = () => {
                     </Col>
                     <Col lg={8}>
                         <div className="pick-right">
-                            <h1>Falcon Tours<br/>Vendor Name</h1>
+                            <h1>{data.payload.name}</h1>
                             <p className="my-star">
                                 <img src={require('../../assets/images/Group3.png')} alt="star" /> 2500 reviews
                             </p>

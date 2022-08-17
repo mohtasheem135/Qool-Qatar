@@ -456,6 +456,10 @@
     margin: auto;
 }
 
-.videoFrame{
-    border-radius: 20px;
+/* Lets Explore */
+
+video{
+    border-radius: 10px;
+
 }
+

@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
+    "dateformat": "^5.0.3",
     "dotenv": "^16.0.1",
     "firebase": "^8.6.2-2021418232615",
     "mapbox-gl": "^1.13.0",

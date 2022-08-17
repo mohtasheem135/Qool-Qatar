@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
+import dateFormat, { masks } from "dateformat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 
@@ -89,7 +90,7 @@ const UpcomingEvents = ({ data }) => {
                     <Col lg={6}>
                         <h3>Upcoming Events</h3>
                         {/* <a href={() => true}>View More <FontAwesomeIcon icon={faArrowRightLong} /></a> */}
-                        <a href='/list-of-activities-nearby'>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
+                        <a href='/list-of-activities'>View More <FontAwesomeIcon icon={faArrowRightLong} /></a>
                     </Col>
                     <Col lg={6}></Col>
                 </Row>
@@ -104,7 +105,7 @@ const UpcomingEvents = ({ data }) => {
                                             <img src={e.photoUrl} alt="pick" />
                                         </a>
                                         <p className="pick-title">{e.name}</p>
-                                        {/* <p className="pick-title">{e.eventDate}</p> */}
+                                        <p className="date-box"><img src={require('../../assets/images/Calendar.png')} alt="calendar" />{dateFormat(e.eventDate, "DDD, mmm dS, yyyy")}</p>
                                     </div>
                                 )
                             }) : null}

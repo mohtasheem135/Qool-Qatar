@@ -64,9 +64,7 @@ const LetExplore = ({ data }) => {
             }
         ]
     };
-    const v = 'https://asdasd.sgp1.cdn.digitaloceanspaces.com/assets/463c6439-47e1-4ac0-8ae3-a3d688561fc0Pocket_Watch_a10___25s___4k_res.mp4'
-
-
+    
     return (
         <section className="top-picks explore-block">
             <Container>

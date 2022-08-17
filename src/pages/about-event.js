@@ -14,25 +14,11 @@ const AboutEvent = () => {
 
     const navigate = useNavigate();
     const [data, setData] = useState('');
-    const [loginError, setLoginError] = useState(false);
     const [url, setUrl] = useState('/signIn')
 
     useEffect(() => {
         document.title = "About Event - Qool Qatar";
 
-        getProfile();
-        async function getProfile() {
-            const { data } = await Axios.get(`/profile/self`);
-            if (data.error) {
-                console.log("error")
-                setLoginError(true);
-                alert("You are not loggedIN....You are suggested to login again to continue booking")
-            } else {
-                setUrl('/booking')
-            }
-        }
-
-        // console.log(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
         setData(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
 
         mapboxGl.accessToken = 'pk.eyJ1IjoibWVhemFkMTM1MCIsImEiOiJjbDVwbGNncTIwYmFpM2tuMnY3eHBlM2VhIn0._eM88ThriAOOttj-IY7OGQ';
@@ -68,6 +54,13 @@ const AboutEvent = () => {
         }));
 
     }, []);
+
+
+    const events = (event, param) => {
+        console.log(param);
+        localStorage.setItem('vendorOage_aboutEvent', param);
+        
+    }
 
 
     return (
@@ -110,6 +103,7 @@ const AboutEvent = () => {
                                         <p className="more-txt">More Information</p>
                                         <p className="sub-info"><img src={require('../assets/images/Time-Circle.png')} alt="time" /> {data.hours}</p>
                                         <p className="sub-info"><img src={require('../assets/images/2User.png')} alt="user" /> All age group</p>
+                                        <p className="sub-info"><img src={require('../assets/images/2User.png')} alt="user" /> By <a onClick={event => events(event, data.vendorId)} href='/vendor-page'>{data.vendorName}</a></p>
                                         <p className="about-txt">About</p>
                                     </Col>
                                     <Col lg={6}>
@@ -128,7 +122,7 @@ const AboutEvent = () => {
 
                                 <p className="about-des">An event not to be missed ! </p> */}
                                 <a href={url} >
-                                    <Button disabled={loginError === true ? true : false} className="about-btn">Book now</Button>
+                                    <Button  className="about-btn">Book now</Button>
                                 </a>
                             </div>
                         </Col>

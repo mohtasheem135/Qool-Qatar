@@ -3,6 +3,7 @@ import { Button, Col, Container, Row } from 'reactstrap';
 import StripeCheckout from 'react-stripe-checkout';
 import Axios from 'axios';
 import { useNavigate } from 'react-router';
+import "../assets/css/Pages.css"
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 
 const Checkout = () => {
@@ -81,17 +82,17 @@ const Checkout = () => {
         formData.append('email', localStorage.getItem('booking_Email'))
         formData.append('mobileNumber', localStorage.getItem('booking_Mobile'))
         formData.append('guests', localStorage.getItem('booking_Guests'))
-        formData.append('packageName', data.name)
-        formData.append('eventDate', data.eventDate)
-        formData.append('eventAddress', data.eventAddress)
-        formData.append('packageHours', data.hours)
-        formData.append('photoUrl', data.photoUrl)
+        // formData.append('packageName', data.name)
+        // formData.append('eventDate', data.eventDate)
+        // formData.append('eventAddress', data.eventAddress)
+        // formData.append('packageHours', data.hours)
+        // formData.append('photoUrl', data.photoUrl)
 
         const { data } = await Axios.post('/payment/completed', formData);
         console.log(data)
         if (data.error != true) {
-            // navigate('/booking-after-payment')
-            // window.location.reload();
+            navigate('/booking-after-payment')
+            window.location.reload();
             console.log(data)
         }
 
@@ -105,11 +106,11 @@ const Checkout = () => {
         formData.append('email', localStorage.getItem('booking_Email'))
         formData.append('mobileNumber', localStorage.getItem('booking_Mobile'))
         formData.append('guests', localStorage.getItem('booking_Guests'))
-        formData.append('packageName', data.name)
-        formData.append('eventDate', data.eventDate)
-        formData.append('eventAddress', data.eventAddress)
-        formData.append('packageHours', data.hours)
-        formData.append('photoUrl', data.photoUrl)
+        // formData.append('packageName', data.name)
+        // formData.append('eventDate', data.eventDate)
+        // formData.append('eventAddress', data.address)
+        // formData.append('packageHours', data.hours)
+        // formData.append('photoUrl', data.photoUrl)
 
         for (var pair of formData.entries()) {
             console.log(pair[0]+ ', ' + pair[1]); 
@@ -144,7 +145,7 @@ const Checkout = () => {
                     </Row>
                     <Row className="about-info checkblock1">
                         <Col lg={2}>
-                            <img src={require('../assets/images/event1.png')} className="booking-img" alt="big" />
+                            <img src={data.photoUrl} className="booking-img" alt="big" />
                         </Col>
                         <Col lg={10}>
                             <div className="booking-form checkout-box">
@@ -197,8 +198,8 @@ const Checkout = () => {
                                 {/* <a href='/booking-after-payment'><Button className="payment-btn">Proceed to Payment</Button></a> */}
                                 {/* <a href='/payment'><Button className="payment-btn">Proceed to Payment</Button></a> */}
                                 <StripeCheckout
-                                    name="Qool Qatar"
-                                    description="Big Data Stuff"
+                                    name={data.name}
+                                    description={data.address}
                                     image={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic}
                                     stripeKey={process.env.REACT_APP_PUBLISABLE_KEY}
                                     token={makePayment}
@@ -210,7 +211,7 @@ const Checkout = () => {
                             </div>
                         </Col>
                     </Row>
-                    <button onClick={jj}>CLICK</button>
+                    {/* <button onClick={jj}>CLICK</button> */}
                 </Container>
             </section>
 
