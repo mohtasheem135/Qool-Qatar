@@ -193,16 +193,18 @@
 @media only screen and (max-width: 700px) {
   .signIn-container-1{
     /* border: 2px solid black; */
-    width: 300px;
-    height: 20pc;
-    margin-top: 150px;
+    width: 370px;
+    height: 23pc;
+    margin-top: 110px;
   }
   .signIn-container-1-p{
-    font-size: 20px;
+    /* border: 2px solid black; */
+    font-size: 24px;
+    padding: 20px 24px;
   }
   
   .inp{
-    width: 250px;
+    width: 275px;
     margin-top: 60px;
   }
   .signIn-container-1-label{
@@ -214,14 +216,14 @@
     font-size: 14px;
   }
   .signIn-container-1-btn{
-    width: 250px;
+    width: 273px;
     margin-top: 45px;
-    margin-left: 30px;
+    margin-left: 50px;
   }
   
   /* OTP Page */
   .signIn-container-2-p{
-    font-size: 20px;
+    font-size: 24px;
     margin-top: -10px;
   }
   .signIn-container-1-p-3{
@@ -234,9 +236,9 @@
     margin-left: 24px;
   }
   .signIn-container-2-btn{
-    width: 250px;
+    width: 273px;
     margin-top: 45px;
-    margin-left: 30px;
+    margin-left: 50px;
   }
   .otp-inp-container{
     display: inline-flex;
@@ -245,7 +247,7 @@
     font-family: 'Manrope', sans-serif;
   }
   .otp-inp-box{
-    font-size: 20px;
+    font-size: 40px;
     color: rgba(128, 128, 128, 0.555);
   }
   .icon-1{

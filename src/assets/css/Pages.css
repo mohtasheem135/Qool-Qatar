@@ -220,6 +220,17 @@
     border-radius: 100%;
 }
 
+@media only screen and (max-width: 700px) {
+    .profile-img {
+        width: 77px;
+        height: 77px;
+        border-radius: 100%;
+    }
+}
+
+
+
+
 /* Stepper.Js --- File  */
 .proceed-after-payment-a {
     color: white;
@@ -399,9 +410,7 @@
 }
 
 
-.bvbv{
-
-}
+.bvbv {}
 
 .meta-icon:hover .jjj {
     /* visibility: visible; */
@@ -409,7 +418,7 @@
     color: red;
 }
 
-.jjj{
+.jjj {
     border: 2px solid black;
     position: absolute;
     margin-left: 60%;
@@ -421,23 +430,23 @@
 
 /* MAP */
 
-.mapp{
+.mapp {
     /* width: 700px; */
     width: auto;
     height: 310px;
     /* border: 2px solid black; */
 }
 
-@media (max-width:991px){
-    .mapp{
+@media (max-width:991px) {
+    .mapp {
         /* width: 450px; */
         width: auto;
         /* height: 240px; */
     }
 }
 
-@media (max-width: 480px){
-    .mapp{
+@media (max-width: 480px) {
+    .mapp {
         width: auto;
         height: 200px;
     }
@@ -445,21 +454,30 @@
 
 /* About-Event */
 
-.aboutMap{
+.aboutMap {
     width: 380px;
     margin-top: -10px;
     height: 230px;
 }
 
 /* React-Loader-Spinner */
-.spokes{
+.spokes {
     margin: auto;
 }
 
 /* Lets Explore */
 
-video{
+video {
     border-radius: 10px;
 
 }
 
+.mobile-profile-container {
+    /* border: 2px solid black; */
+    display: flex;
+}
+
+.mobile-profile-container-1 {
+    /* border: 2px solid red; */
+    margin-left: 20px;
+}

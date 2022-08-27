@@ -21,6 +21,13 @@ const AboutEvent = () => {
 
         setData(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
 
+
+        if(JSON.parse(localStorage.getItem('Profile_Data')).error) {
+            setUrl('/signIn')
+        }else {
+            setUrl('/booking')
+        }
+
         mapboxGl.accessToken = 'pk.eyJ1IjoibWVhemFkMTM1MCIsImEiOiJjbDVwbGNncTIwYmFpM2tuMnY3eHBlM2VhIn0._eM88ThriAOOttj-IY7OGQ';
         const map = new mapboxGl.Map({
             container: 'map', // container ID
@@ -59,7 +66,7 @@ const AboutEvent = () => {
     const events = (event, param) => {
         console.log(param);
         localStorage.setItem('vendorOage_aboutEvent', param);
-        
+
     }
 
 
@@ -122,7 +129,7 @@ const AboutEvent = () => {
 
                                 <p className="about-des">An event not to be missed ! </p> */}
                                 <a href={url} >
-                                    <Button  className="about-btn">Book now</Button>
+                                    <Button className="about-btn">Book now</Button>
                                 </a>
                             </div>
                         </Col>

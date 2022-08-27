@@ -70,7 +70,7 @@ const VendorBlock = ({data}) => {
                     </Col>
                     <Col lg={8}>
                         <div className="pick-right">
-                            <h1>{data.payload.name}</h1>
+                            {/* <h1>{data.payload.name}</h1> */}
                             <p className="my-star">
                                 <img src={require('../../assets/images/Group3.png')} alt="star" /> 2500 reviews
                             </p>

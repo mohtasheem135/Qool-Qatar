@@ -46,6 +46,7 @@ import "../../assets/css/Pages.css"
 
 const LetExplore = ({ data }) => {
 
+
     var settings = {
         dots: false,
         lazyLoad: 'progressive',
@@ -81,26 +82,27 @@ const LetExplore = ({ data }) => {
 
 
                             {data.error == false ? data.payload.category.map((e) => {
+                                // console.log(e.photoUrl)
                                 return (
                                     <div key={e} className="pick-box">
-                                        {/* <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
-                                        </a> */}
+                                        <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
+                                        </a>
 
-                                        <ReactPlayer
+                                        {/* <ReactPlayer
                                             className="videoFrame"
                                             // url='https://asdasd.sgp1.cdn.digitaloceanspaces.com/assets/463c6439-47e1-4ac0-8ae3-a3d688561fc0Pocket_Watch_a10___25s___4k_res.mp4'
                                             url={e.videoUrl}
-                                            // light={e.photoUrl}
+                                            light={e.photoUrl}
                                             width="90%"
                                             height="70%"
                                             playIcon
                                             // width={400}
                                             // height={240}
-                                            playing
+                                            // playing
                                             muted
                                             // controls
                                             loop
-                                        />
+                                        /> */}
                                         <p className="pick-title">{e.name}</p>
                                         <p className="pick-des">28 Activities</p>
                                     </div>

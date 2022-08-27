@@ -167,7 +167,7 @@ const OTPSignIN = () => {
           // ...
           console.log(error)
           console.log("SMS not sent")
-          alert("sms not sent.....refresh the page and try again")
+          // alert("sms not sent.....refresh the page and try again")
         });
     } else {
       alert('Enter the Mobile Number')
@@ -196,7 +196,7 @@ const OTPSignIN = () => {
 
         // console.log(JSON.parse(localStorage.getItem('Home_Data')))
         // navigate('/profile-page?tab=editProfile')
-        // navigate('/')
+        navigate('/')
         window.location.reload()
         // The data.payload will be stored in context or localstorage
       }
@@ -262,6 +262,7 @@ const OTPSignIN = () => {
                 numInputs={6}
                 separator={<span>-</span>}
                 className='otp-inp-box'
+                isInputNum={true}
               />
             </div>
             {/* <OTPInput className='otp-inp' value={OTP} onChange={setOTP} autoFocus OTPLength={6} otpType="number" disabled={false} secure={false} /> */}

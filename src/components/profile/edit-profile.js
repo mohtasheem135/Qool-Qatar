@@ -88,7 +88,7 @@ const EditProfile = () => {
                         type="text"
                         name="name"
                         value={JSON.parse(localStorage.getItem('Profile_Data')).payload.name}
-                        placeholder="Robert Fox"
+                        placeholder="Full Name"
                     />
                 </FormGroup>
                 <FormGroup>
@@ -98,7 +98,7 @@ const EditProfile = () => {
                         type="email"
                         name="email"
                         value={JSON.parse(localStorage.getItem('Profile_Data')).payload.email}
-                        placeholder="robertfox@gmail.com"
+                        placeholder="Email"
                     />
                 </FormGroup>
                 <FormGroup>
@@ -107,8 +107,9 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="text"
                         name="mobile"
-                        value={JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber}
-                        placeholder="+974 987654321"
+                        // value={JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber}
+                        value={[JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(0, 3), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(3,7), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(7)].join('')}
+                        placeholder="mobile number"
                     />
                 </FormGroup>
                 <Button onClick={handleSubit} className='contact-form-btn' >Submit</Button>

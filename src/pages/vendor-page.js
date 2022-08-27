@@ -13,7 +13,7 @@ const VendorPage = () => {
         .then((data) => setData(data));
       }, []);
 
-      console.log(localStorage.getItem('vendorOage_aboutEvent'))
+      console.log(data)
 
     return (
         <MainPage>

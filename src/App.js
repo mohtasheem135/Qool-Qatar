@@ -36,6 +36,8 @@ const App = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
+
+    console.log(localStorage.getItem('@auth_token'))
     Axios.defaults.baseURL = BASE_URL;
     Axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('@auth_token')}` }
 
@@ -43,6 +45,7 @@ const App = () => {
     async function getProfile() {
       const { data } = await Axios.get(`/profile/self`);
       setData(data)
+      // console.log(data)
     }
   }, [])
 
@@ -52,26 +55,15 @@ const App = () => {
         height={100} width={50} className='spokes' />
     )
   }
-  else if (data.error) {
-    return (
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<OTPSignIN />} />
-        </Routes>
-      </Router>
-    )
-  }
-  else if (data.error == false) {
+  else {
+    // console.log(data)
     localStorage.setItem('Profile_Data', JSON.stringify(data));
     return (
       <Router>
         <Routes>
-          <Route exact path="/" element={
-            localStorage.getItem('@auth_token') === null ? (<OTPSignIN />) : (<Home />)
-          } />
+          <Route exact path="/" element={<Home />} />
           <Route path="/lightining-deals" element={<LightiningDeals />} />
           <Route path="/destination-page" element={<DestinationPage />} />
-
           <Route path='/profile-page' element={<ProfilePage />} />
           <Route path='/package-page' element={<PackagePage />} />
           <Route path='/vendor-page' element={<VendorPage />} />

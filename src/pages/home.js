@@ -38,8 +38,6 @@ const Home = () => {
             <LuxuryPicks data={data} />
             <UpcomingEvents data={data} />
         </MainPage>
-
-
     )
 }
 
