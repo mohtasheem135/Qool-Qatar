@@ -28,12 +28,12 @@ const Home = () => {
 
 
     return (
-        <MainPage>
+        <MainPage data={data?.payload?.timerDeal}>
             {/* <h1>JSON.parse(localStorage.getItem('Home_Data')).data.message</h1> */}
             <ExperienceWorld />
             <LetExplore data={data} />
             <TopPicks data={data} />
-            <BestDeals />
+            <BestDeals data={data}/>
             <ActivitiesNear data={data} />
             <LuxuryPicks data={data} />
             <UpcomingEvents data={data} />

@@ -219,13 +219,14 @@ header .container-fluid {
 .offer-line p{
     font-weight: 700;
 }
-.offer-line a {
+.offer-line span {
     color: #ffffff !important;
 }
 .offer-line .offer1{
     font-size: 12px;
     line-height: 18px;
     margin-right: 18px;
+    color: #FFFFFF;
 }
 .offer-line .offer2{
     font-size: 14px;
@@ -253,14 +254,12 @@ header .container-fluid {
     line-height: 22px;
     color: #000000;
     margin-bottom: 6px !important;
-    text-align: center;
 }
 .pick-box .pick-des{
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
     color: #6D6D6D;
-    text-align: center;
 }
 .deal-box{
     position: relative;
@@ -477,6 +476,11 @@ header .container-fluid {
     padding-top: 15px;
     padding-bottom: 12px;
 }
+// .pick-address {
+//     font-weight: 400;
+// font-size: 14px;
+// line-height: 19px;
+// }
 .place-box .pick-by{
     font-weight: 500;
     font-size: 12px;
@@ -637,7 +641,7 @@ header .container-fluid {
     line-height: 20px;
     color: #6D6D6D;
 }
-.received-box .points{
+.received-box .increment{
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
@@ -706,10 +710,16 @@ header .container-fluid {
     text-align: center;
     position: absolute;
     top: 3%;
-    right: 30%;
+    right: 20%;
 }
 .my-wishlist .col-lg-4{
     position: relative;
+}
+
+.my-wishlist .photoUrl{
+    width:220px;
+    height:220px;
+    border-radius: 10px;
 }
 .my-reviews img.user-img{
     margin-right: 20px;
@@ -1976,7 +1986,10 @@ header .container-fluid {
 .my-star img{
     margin-right: 6px;
 }
-.received-sub .received-box:nth-child(2) .points{
+.received-sub .decrement{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
     color:red;
 }
 .pick-left .slick-prev, .pick-left .slick-next {

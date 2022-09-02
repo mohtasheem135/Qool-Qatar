@@ -6,7 +6,6 @@ import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 // import { getPackages } from '../../api_utils';
 // import { useQuery } from 'react-query';
 
-
 // const dataa = [
 // 	{
 // 		id: 1,

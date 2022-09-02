@@ -90,7 +90,7 @@ const ActivitiesNear = ({ data }) => {
                                         <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
                                         </a>
                                         <p className="pick-title">{e.name}</p>
-                                        <p className="pick-des">28 Activities</p>
+                                        <p className="pick-des">{e.subCategoryId.packages.length>=1 && e.subCategoryId.packages.length + " Partners Available"}</p>
                                     </div>
                                 )
                             }) : null}

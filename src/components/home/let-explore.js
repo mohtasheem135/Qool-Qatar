@@ -78,14 +78,10 @@ const LetExplore = ({ data }) => {
                 <Row className="bottom-line">
                     <Col>
                         <Slider {...settings}>
-                            {/* {picks} */}
-
-
                             {data.error == false ? data.payload.category.map((e) => {
-                                // console.log(e.photoUrl)
                                 return (
                                     <div key={e} className="pick-box">
-                                        <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
+                                        <a href={`/list-of-activities/?id=${e.name}`}> <img src={e.photoUrl} alt="pick" />
                                         </a>
 
                                         {/* <ReactPlayer
@@ -104,7 +100,7 @@ const LetExplore = ({ data }) => {
                                             loop
                                         /> */}
                                         <p className="pick-title">{e.name}</p>
-                                        <p className="pick-des">28 Activities</p>
+                                        <p className="pick-des">{e.subCategories.length} Activities</p>
                                     </div>
                                 )
                             }) : null}

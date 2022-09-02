@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 import { Input } from 'reactstrap';
 import Axios from 'axios';
-import "../../assets/css/Pages.css"
+import "../../assets/css/Pages.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditProfile = () => {
 
@@ -27,19 +29,22 @@ const EditProfile = () => {
         // console.log({data})
     };
 
-    const handleSubit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         const { data } = await Axios.post('profile/update', {
-            // name: JSON.parse(localStorage.getItem('Profile_Data')).payload.name,
-            name: 'ME',
-            phoneNumber: JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber,
-            gender: 'male',
-            email: JSON.parse(localStorage.getItem('Profile_Data')).payload.email,
+            name: name,
+            phoneNumber: mobile,
+            gender: 'm',
+            email: email,
             profilePic: imgURL,
             uid: JSON.parse(localStorage.getItem('Profile_Data')).payload.uid,
         });
+
+       !data.error && toast.success(data.message, {position: toast.POSITION.BOTTOM_CENTER});
     }
+
+
 
     const handelInputChange = (e) => {
         let { name, value } = e.target;
@@ -52,6 +57,7 @@ const EditProfile = () => {
     return (
         <div className="edit-profile">
             <h3>Edit Profile</h3>
+            <ToastContainer/>
             <div className="upload-box">
                 <div>
                     <div className="rounded-box">
@@ -87,7 +93,7 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="text"
                         name="name"
-                        value={JSON.parse(localStorage.getItem('Profile_Data')).payload.name}
+                        defaultValue={JSON.parse(localStorage.getItem('Profile_Data')).payload.name}
                         placeholder="Full Name"
                     />
                 </FormGroup>
@@ -97,7 +103,7 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="email"
                         name="email"
-                        value={JSON.parse(localStorage.getItem('Profile_Data')).payload.email}
+                        defaultValue={JSON.parse(localStorage.getItem('Profile_Data')).payload.email}
                         placeholder="Email"
                     />
                 </FormGroup>
@@ -108,11 +114,11 @@ const EditProfile = () => {
                         type="text"
                         name="mobile"
                         // value={JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber}
-                        value={[JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(0, 3), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(3,7), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(7)].join('')}
+                        defaultValue={[JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(0, 3), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(3,7), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(7)].join('')}
                         placeholder="mobile number"
                     />
                 </FormGroup>
-                <Button onClick={handleSubit} className='contact-form-btn' >Submit</Button>
+                <Button onClick={handleSubmit} className='contact-form-btn' >Submit</Button>
                 {/* <Input  type="submit" value="Submit" className="review-btn" /> */}
             </Form>
         </div>

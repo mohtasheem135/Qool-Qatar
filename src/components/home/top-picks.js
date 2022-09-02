@@ -130,6 +130,8 @@ const TopPicks = () => {
                                             <img src={e.photoUrl} alt="pick" />
                                         </a>
                                         <p className="pick-title">{e.name}</p>
+                                        <p className="pick-des">{e.address}</p>
+
                                     </div>
                                 )
 

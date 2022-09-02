@@ -21,12 +21,12 @@ const AboutEvent = () => {
 
         setData(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
 
-
-        if(JSON.parse(localStorage.getItem('Profile_Data')).error) {
-            setUrl('/signIn')
-        }else {
-            setUrl('/booking')
-        }
+        setUrl('/booking');
+        // if(JSON.parse(localStorage.getItem('Profile_Data')).error) {
+        //     setUrl('/signIn')
+        // }else {
+        //     setUrl('/booking')
+        // }
 
         mapboxGl.accessToken = 'pk.eyJ1IjoibWVhemFkMTM1MCIsImEiOiJjbDVwbGNncTIwYmFpM2tuMnY3eHBlM2VhIn0._eM88ThriAOOttj-IY7OGQ';
         const map = new mapboxGl.Map({

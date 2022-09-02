@@ -81,21 +81,22 @@ const OTPSignIN = () => {
   async function send() {
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${localStorage.getItem("@auth_token")}` },
       body: JSON.stringify({
         name: initialState.name,
         phoneNumber: initialState.mobile,
-        gender: "male",
+        gender: "m",
         email: initialState.email,
         profilePic: "https://asdasd.sgp1.cdn.digitaloceanspaces.com/assets/ced2a84a-6617-495e-9145-69b9887a2965Screenshot%202022-06-18%20at%2012.00.09%20AM.png",
         uid: "00000100000"
       })
     };
-    fetch('https://qoolqatar.com/api/v1/profile/create', requestOptions)
+  fetch('https://qoolqatar.com/api/v1/profile/create', requestOptions)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        navigate('/profile-page?tab=editProfile')
+        navigate('/');
+        // navigate('/profile-page?tab=editProfile')
         window.location.reload();
       });
 

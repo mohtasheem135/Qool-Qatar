@@ -93,7 +93,7 @@ const DestinationPage = () => {
                                     <li><img src={require('../assets/images/Rectangle42.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle43.png')} alt="small" /></li>
 
-                                    {/* {Object.keys(data.photos).map((id, index) => {
+                                     {/* {Object.keys(data.photos).map((id, index) => {
                                         <li><img src={data.photos[id]} alt="small"/></li>
                                     })} */}
 
