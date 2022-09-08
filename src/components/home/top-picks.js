@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Slider from "react-slick";
-// import { getSubCategory } from "../../api_utils"
 import { getSubCategory } from '../../api_utils';
 import { useQuery } from 'react-query';
 

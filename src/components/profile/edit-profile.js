@@ -64,7 +64,7 @@ const EditProfile = () => {
                         <div className="outer">
                             {/* {selectedImage === null ? <img className="outer" src={require('../../assets/images/Group2402.png')} alt="user" className="user" /> : */}
                             {/* {selectedImage === null ? <img className="outer" src={initialState.profilePic} alt="user" /> : */}
-                            {selectedImage === null ? <img className="outer" src={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic} alt="user" /> :
+                            {selectedImage === null ? <img className="outer" src={JSON.parse(localStorage.getItem('Profile_Data'))?.payload?.profilePic} alt="user" /> :
                                 <img className="outer" src={URL.createObjectURL(selectedImage)} alt="user" />
                             }
                             <div className="inner">
@@ -93,7 +93,7 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="text"
                         name="name"
-                        defaultValue={JSON.parse(localStorage.getItem('Profile_Data')).payload.name}
+                        defaultValue={JSON.parse(localStorage.getItem('Profile_Data')).payload?.name}
                         placeholder="Full Name"
                     />
                 </FormGroup>
@@ -103,7 +103,7 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="email"
                         name="email"
-                        defaultValue={JSON.parse(localStorage.getItem('Profile_Data')).payload.email}
+                        defaultValue={JSON.parse(localStorage.getItem('Profile_Data')).payload?.email}
                         placeholder="Email"
                     />
                 </FormGroup>
@@ -114,7 +114,7 @@ const EditProfile = () => {
                         type="text"
                         name="mobile"
                         // value={JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber}
-                        defaultValue={[JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(0, 3), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(3,7), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber.slice(7)].join('')}
+                        defaultValue={[JSON.parse(localStorage.getItem('Profile_Data')).payload?.phoneNumber?.slice(0, 3), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload?.phoneNumber?.slice(3,7), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload?.phoneNumber?.slice(7)].join('')}
                         placeholder="mobile number"
                     />
                 </FormGroup>

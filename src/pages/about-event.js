@@ -70,6 +70,12 @@ const AboutEvent = () => {
     }
 
 
+    const getTime = (time) => {
+        let date = new Date(time).toDateString();
+        return date;
+    };
+
+
     return (
         <MainPage>
             <section className="destination-page">
@@ -87,15 +93,15 @@ const AboutEvent = () => {
                         <Col lg={4}>
                             <div className="pick-left">
                                 {/* <img src={require('../assets/images/event1.png')} alt="big" /> */}
-                                <img src={data.photoUrl} alt="big" />
-                                <ul className="img-list">
+                                <img src={data?.photos && data?.photos[0]} alt="big" />
+                                {/* <ul className="img-list">
                                     <li><img src={require('../assets/images/Rectangle38.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle39.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle40.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle41.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle42.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle43.png')} alt="small" /></li>
-                                </ul>
+                                </ul> */}
                             </div>
                         </Col>
                         <Col lg={8}>
@@ -105,10 +111,10 @@ const AboutEvent = () => {
                                     <Col lg={6}>
                                         <p className="price-with"><span>${data.price}.00</span>/person</p>
                                         {/* <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> Sat, 1 Oct</p> */}
-                                        <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> {data.eventDate}</p>
+                                        <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> {getTime(data?.eventStartDate)} - {getTime(data?.eventEndDate)}</p>
                                         <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> {data.address}</p>
                                         <p className="more-txt">More Information</p>
-                                        <p className="sub-info"><img src={require('../assets/images/Time-Circle.png')} alt="time" /> {data.hours}</p>
+                                        <p className="sub-info"><img src={require('../assets/images/Time-Circle.png')} alt="time" /> {data.hours} hours ({data.startHour} - {data.endHour})</p>
                                         <p className="sub-info"><img src={require('../assets/images/2User.png')} alt="user" /> All age group</p>
                                         <p className="sub-info"><img src={require('../assets/images/2User.png')} alt="user" /> By <a onClick={event => events(event, data.vendorId)} href='/vendor-page'>{data.vendorName}</a></p>
                                         <p className="about-txt">About</p>

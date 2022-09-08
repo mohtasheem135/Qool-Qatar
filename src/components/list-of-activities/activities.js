@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import { useNavigate } from 'react-router';
-
+import { getSubCategory } from '../../api_utils';
+import { useQuery } from 'react-query';
 
 
 const data = [
@@ -87,6 +88,13 @@ const activities = data.map(a => {
 const Activities = () => {
 
     const navigate = useNavigate();
+    const [filteredData, setFilteredData] = useState();
+    const { data, isLoading, isError, isSuccess } = useQuery('subCategory', getSubCategory);
+    if(data) {
+        let allStoredIds = JSON.stringify(localStorage.getItem("subCategories"));
+        
+    }
+    
 
     const handelClick=()=> {
         navigate('/destination-page')
