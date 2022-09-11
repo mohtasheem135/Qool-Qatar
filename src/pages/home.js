@@ -24,7 +24,13 @@ const Home = () => {
                 setData(data);
             }
         });
-    }, [])
+
+        let keysToRemove = ["packageCategoryId", "categoryName", "subcategories", "packageData"];
+
+        keysToRemove.forEach(k =>
+            localStorage.removeItem(k))
+    }, []);
+
 
 
     return (

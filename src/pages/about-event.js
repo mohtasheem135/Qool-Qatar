@@ -93,7 +93,7 @@ const AboutEvent = () => {
                         <Col lg={4}>
                             <div className="pick-left">
                                 {/* <img src={require('../assets/images/event1.png')} alt="big" /> */}
-                                <img src={data?.photos && data?.photos[0]} alt="big" />
+                                <img src={data?.photos && data?.photos[0]} alt="big"  width="450" height="200"/>
                                 {/* <ul className="img-list">
                                     <li><img src={require('../assets/images/Rectangle38.png')} alt="small" /></li>
                                     <li><img src={require('../assets/images/Rectangle39.png')} alt="small" /></li>

@@ -406,8 +406,9 @@ header .container-fluid {
 .pick-left{
     position: relative;
 }
-.pick-left img{
-    width: 100%;
+.pick-left .video-player{
+    width: 60%;
+
 }
 .pick-left .img-list{
     list-style: none;
@@ -416,6 +417,12 @@ header .container-fluid {
 }
 .pick-left .img-list li{
     margin: 20px 18px 0 0;
+    img {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+    
+    }
 }
 .pick-left .play-box{
     position: absolute;

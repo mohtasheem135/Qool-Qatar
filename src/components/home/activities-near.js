@@ -68,6 +68,13 @@ const ActivitiesNear = ({ data }) => {
 		]
     };
 
+    const redirectTo = (param) => {
+        localStorage.setItem("subcategories",JSON.stringify(param.subCategoryId));
+        localStorage.setItem("categoryName", "Activities Nearby");
+        window.location.href=`/list-of-activities`;
+    }
+
+
     return (
         <section className="top-picks activities-near">
             <Container>
@@ -86,8 +93,8 @@ const ActivitiesNear = ({ data }) => {
                             
                             {data.error == false ? data.payload.nearByPackages.map((e) => {
                                 return (
-                                    <div key={e} className="pick-box">
-                                        <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
+                                    <div key={e} className="pick-box" onClick={() => redirectTo(e)}>
+                                        <a> <img src={e.photoUrl} alt="pick" />
                                         </a>
                                         <p className="pick-title">{e.name}</p>
                                         <p className="pick-des">{e.subCategoryId.packages.length>=1 && e.subCategoryId.packages.length + " Partners Available"}</p>

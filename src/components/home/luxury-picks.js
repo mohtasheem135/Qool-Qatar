@@ -73,13 +73,9 @@ const LuxuryPicks = ({ data }) => {
     };
 
     const jj = (event, param) => {
-        console.log(param);
-        localStorage.setItem('topPicks_destination', JSON.stringify(param));
-        localStorage.setItem('topPicks_destination_lat', JSON.stringify(param.location.coordinates[0]));
-        localStorage.setItem('topPicks_destination_lng', JSON.stringify(param.location.coordinates[1]));
-        Object.keys(param.photos).map((id, index) => {
-            console.log("gg " + param.photos[id])
-        })
+        localStorage.setItem("subcategories",JSON.stringify(param.subCategoryId));
+        localStorage.setItem("categoryName",param.name);
+        window.location.href=`/list-of-activities`;
     }
 
     return (
@@ -97,11 +93,10 @@ const LuxuryPicks = ({ data }) => {
                         <Slider {...settings}>
                             {/* {luxury} */}
                             {data.error == false ? data.payload.luxuryPicks.map((e) => {
-                                // console.log(e.isTopPicks)
-                                // if(e.isLuxuryPicks==true){
+                        
                                     return (
-                                        <div key={e} className="pick-box">
-                                            <a onClick={event => jj(event, e)} href='/destination-page'>
+                                        <div key={e} className="pick-box" onClick={event => jj(event, e)} >
+                                            <a >
                                                 <img src={e.photoUrl} alt="pick" />
                                             </a>
                                             <p className="pick-title">{e.name}</p>

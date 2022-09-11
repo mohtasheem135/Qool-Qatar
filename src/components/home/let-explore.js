@@ -48,7 +48,8 @@ const LetExplore = ({ data }) => {
 
     function redirectTo(e) {
         localStorage.setItem("subcategories",JSON.stringify(e.subCategories));
-        window.location.href=`/list-of-activities/?name=category`;
+        localStorage.setItem("categoryName", e.name);
+        window.location.href=`/list-of-activities`;
     };
 
     var settings = {
