@@ -5,11 +5,9 @@ import { useNavigate } from 'react-router';
 const AccountSettings = () => {
     const navigate = useNavigate();
     function logOut() {
-        localStorage.removeItem('otp_signIn')
-        localStorage.removeItem('userID')
-        localStorage.setItem('@auth_token', null);
-        navigate('/')
-        window.location.reload()
+       localStorage.clear();
+        navigate('/');
+        window.location.reload();
     }
     return (
         <div className="setting-box">

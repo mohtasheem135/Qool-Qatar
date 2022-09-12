@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import NumericInput from 'react-numeric-input';
 import { useNavigate } from 'react-router';
+import dateFormat from "dateformat";
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 
 const Booking = () => {
@@ -50,7 +51,7 @@ const Booking = () => {
                     <Row className="about-info">
                         <Col lg={3}>
                             <img src={data.photoUrl} className="booking-img" alt="big" />
-                            <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> {data.eventDate}</p>
+                            <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> {dateFormat(data?.eventStartDate, "DDD, mmm dS, yyyy")} - {dateFormat(data?.eventEndDate, "DDD, mmm dS, yyyy")}</p>
                             <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> {data.address}</p>
                         </Col>
                         <Col lg={9}>

@@ -4,15 +4,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Nav, Offcanvas, Form, FormGroup } from 'react-bootstrap';
 import "../../assets/css/Pages.css"
+import Countdown from 'react-countdown';
+import {useNavigate} from "react-router-dom";
 
-const Header = () => {
 
+const Header = ({data}) => {
 
+    const navigate = useNavigate();
     useEffect(() => {
 
         console.log("header")
         console.log(JSON.parse(localStorage.getItem('Profile_Data')))
-    }, [])
+    }, []);
+
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+          // Render a completed state
+          return null;
+        } else {
+          // Render a countdown
+          return <span className="offer1">{hours}Hrs : {minutes}Mins :{seconds}Secs left</span>;
+        }
+      };
+
+      const goToLightningDeals = () => {
+        navigate("/lightining-deals");
+      }
+      
 
     // localStorage.getItem(JSON.parse(localStorage.getItem('Profile_Data')))
 
@@ -170,12 +188,15 @@ const Header = () => {
                 <Container fluid>
                     <Row>
                         <Col lg={12}>
-                            <div className="offer-line">
-                                <p>
-                                    <a href="/lightining-deals" className="offer1">23 Mins  : 32 Seconds Left</a>
-                                    <a href="/lightining-deals" className="offer2">Get QAR 50 off</a>
-                                    <a href="/lightining-deals"><FontAwesomeIcon icon={faArrowRightLong} /></a>
-                                </p>
+                            <div className="offer-line" onClick={goToLightningDeals}>
+                            
+                               
+                                    <span className="offer1"> <Countdown date={"2022-08-31T12:16:37.301Z" || data?.endDate}   renderer={renderer}>
+
+</Countdown></span>
+                                    <span className="offer2">Get QAR {data?.discount}% off</span>
+                                    <span><FontAwesomeIcon icon={faArrowRightLong} /></span>
+                          
                             </div>
                         </Col>
                     </Row>

@@ -46,6 +46,11 @@ import "../../assets/css/Pages.css"
 
 const LetExplore = ({ data }) => {
 
+    function redirectTo(e) {
+        localStorage.setItem("subcategories",JSON.stringify(e.subCategories));
+        localStorage.setItem("categoryName", e.name);
+        window.location.href=`/list-of-activities`;
+    };
 
     var settings = {
         dots: false,
@@ -78,14 +83,10 @@ const LetExplore = ({ data }) => {
                 <Row className="bottom-line">
                     <Col>
                         <Slider {...settings}>
-                            {/* {picks} */}
-
-
                             {data.error == false ? data.payload.category.map((e) => {
-                                // console.log(e.photoUrl)
                                 return (
                                     <div key={e} className="pick-box">
-                                        <a href="/list-of-activities"> <img src={e.photoUrl} alt="pick" />
+                                        <a onClick={()=>redirectTo(e)}> <img src={e.photoUrl} alt="pick" />
                                         </a>
 
                                         {/* <ReactPlayer
@@ -104,7 +105,7 @@ const LetExplore = ({ data }) => {
                                             loop
                                         /> */}
                                         <p className="pick-title">{e.name}</p>
-                                        <p className="pick-des">28 Activities</p>
+                                        <p className="pick-des">{e.subCategories.length} Activities</p>
                                     </div>
                                 )
                             }) : null}

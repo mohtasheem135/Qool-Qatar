@@ -1,13 +1,25 @@
 import React, { useEffect } from 'react';
 import { Col, Container, Form, Row } from 'reactstrap';
+
+import {useSearchParams} from "react-router-dom";
+
+
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 const Activities = React.lazy(() => import('../components/list-of-activities/activities'));
 
 
 const ListOfActivitiesNearBy = () => {
+                   
+const [searchParams, setSearchParams] = useSearchParams();
+console.log("id", searchParams.get("id"));
     useEffect(() => {
         document.title = "List Of Activities - Qool Qatar";
+        getQueryParam();
     }, []);
+
+    function getQueryParam () {
+ 
+    }
 
 
     return (

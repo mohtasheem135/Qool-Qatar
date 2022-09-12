@@ -64,7 +64,7 @@ const UpcomingEvents = ({ data }) => {
         infinite: true,
         speed: 500,
         autoplay: true,
-        slidesToShow: 5,
+        slidesToShow: data?.payload?.upcommingEvents?.length,
         slidesToScroll: 1,
         responsive: [
             {
@@ -98,7 +98,7 @@ const UpcomingEvents = ({ data }) => {
                     <Col>
                         <Slider {...settings}>
                             {/* {upcoming} */}
-                            {data.error == false ? data.payload.upcommingPackages.map((e) => {
+                            {data.error == false ? data.payload.upcommingEvents.map((e) => {
                                 return (
                                     <div key={e} className="pick-box">
                                         <a onClick={event => events(event, e)} href='/about-event' >
