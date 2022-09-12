@@ -42,10 +42,11 @@ const ProfilePage = () => {
 
     const handleClick = (e) => {
         // e.preventDefault()
-        localStorage.removeItem('otp_signIn')
-        localStorage.removeItem('userID')
-        localStorage.setItem('@auth_token', null);
-        // window.location.reload()
+        // localStorage.removeItem('otp_signIn')
+        // localStorage.removeItem('userID')
+        // localStorage.setItem('@auth_token', null);
+        localStorage.clear();
+        window.location.reload()
     }
 
     return (

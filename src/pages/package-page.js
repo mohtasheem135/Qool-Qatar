@@ -32,7 +32,7 @@ const PackagePage = () => {
                             <div className="package-info">
                                 <p className="title">{data.name}</p>
                                 <p className="location">{data.address}</p>
-                                <p className="price"><span>$50.00/</span>person</p>
+                                <p className="price"><span>${data.price}/</span>person</p>
                                 <p className="content">{data.description}<a>Read more</a></p>
                                 <p className="additional">Additional Info</p>
                                 <ul className="features">

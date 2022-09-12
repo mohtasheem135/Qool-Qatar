@@ -1,11 +1,12 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, FormCheck } from 'react-bootstrap';
 import FormCheckInput from 'react-bootstrap/esm/FormCheckInput';
 import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import NumericInput from 'react-numeric-input';
 import { Form, FormGroup, Input, Label } from 'reactstrap';
-import "../../assets/css/Pages.css"
+import dateFormat from "dateformat";
+import "../../assets/css/Pages.css";
 // const TimeSlot = React.lazy(()=> import('../stepper/time-slot'));
 
 // const { useState, useRef, useEffect, Fragment } = React;
@@ -263,37 +264,55 @@ Stepper.propTypes = {
 	isRightToLeftLanguage: PropTypes.bool,
 };
 
-const App1 = () => {
-	const [acceptFirstTerms, setAcceptFirstTerms] = useState({
+const App1 = props => {
+	const [data, setData] = useState();
+
+	const packageData = JSON.parse(localStorage.getItem(("selectedPackageData")));
+
+	useEffect(()=> {		
+		setData(props?.data);
+	});
+	const [checkedData, setSelected] = useState({
 			checked: false,
-			touched: false,
+			id: null
+			
 		}),
 		[acceptSecondTerms, setAcceptSecondTerms] = useState({
 			checked: false,
 			touched: false,
 		}),
-		// [acceptThirdTerms, setAcceptThirdTerms] = useState({
-		// 	checked: false,
-		// 	touched: false,
-		// }),
+		[acceptThirdTerms, setAcceptThirdTerms] = useState({
+			checked: false,
+			touched: false,
+		}),
 		[isSecondStepLoading, setIsSecondStepLoading] = useState(false);
 
-	const firstTermsHandler = () => {
-		setAcceptFirstTerms((prev) => ({ checked: !prev.checked, touched: true }));
-	};
+
 
 	const secondTermsHandler = () => {
 		setAcceptSecondTerms((prev) => ({ checked: !prev.checked, touched: true }));
 	};
 
-	// const thirdTermsHandler = () => {
-	// 	setAcceptThirdTerms((prev) => ({ checked: !prev.checked, touched: true }));
-	// };
 
 	//for demo purposes only
 	const timeout = (ms) => {
 		return new Promise((resolve) => setTimeout(resolve, ms));
 	};
+
+
+	const onChangeClick = (e, time) => {
+		
+		setSelected({
+			checked: true,
+			id: time._id
+		});
+
+		let appendDataToSelectedPackage = JSON.parse(localStorage.getItem(("selectedPackageData")));
+		appendDataToSelectedPackage["timeSlot"] = {...time} ;
+
+		localStorage.setItem("selectedPackageData", JSON.stringify(appendDataToSelectedPackage));
+
+	}
 
 	const secondStepAsyncFunc = async () => {
 		//it can be an API call
@@ -320,65 +339,35 @@ const App1 = () => {
                         <div className="package-sub">
                             <img src={require('../../assets/images/t1.png')} alt="tour" />
                             <div>
-                                <p className="txt1">Doha: Private 4 Hours City Tour</p>
+                                <p className="txt1">{packageData?.name}</p>
                                 <span className="txt2">Starts from</span>
-                                <p className="txt3"><span>$50.00/</span>person</p>
+                                <p className="txt3"><span>${packageData?.price}/</span>person</p>
                             </div>
                         </div>
-                        <Button className="tour-btn"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" /> Monday, 14 March</Button>
+                        <Button className="tour-btn"><img src={require('../../assets/images/hCalendar.png')} alt="calendar" />{dateFormat(packageData?.eventStartDate, "DDD mmm , yyyy")}</Button>
                     </div>
 					<div>
                         <p className="available-txt">Available Time Slots</p>
-                        <FormCheck className="select-tab">
-							<FormCheckInput
-								checked={acceptFirstTerms.checked}
-								onChange={firstTermsHandler}
-							>
-							</FormCheckInput>
-							<FormCheckLabel>
-								<p className="time">9:00 AM - 12:00 PM</p>
-								<p className="price"><span>$50.00</span>/person</p>
-							</FormCheckLabel>
-						</FormCheck>
+                        {data?.times?.length > 0 && data.times.map(time => {
+						return (
 						<FormCheck className="select-tab">
 							<FormCheckInput
-								checked={acceptFirstTerms.checked}
-								onChange={firstTermsHandler}
+								checked={checkedData?.checked && checkedData.id === time._id}
+								onChange={(e) => onChangeClick(e, time)}
 							>
 							</FormCheckInput>
 							<FormCheckLabel>
-								<p className="time">9:00 AM - 12:00 PM</p>
-								<p className="price"><span>$50.00</span>/person</p>
+								<p className="time">{time.startingTime} - {time.endTime}</p>
+								<p className="price"><span>{'$' +time.price}</span>/person</p>
 							</FormCheckLabel>
-						</FormCheck>
-						<FormCheck className="select-tab">
-							<FormCheckInput
-								checked={acceptFirstTerms.checked}
-								onChange={firstTermsHandler}
-							>
-							</FormCheckInput>
-							<FormCheckLabel>
-								<p className="time">9:00 AM - 12:00 PM</p>
-								<p className="price"><span>$50.00</span>/person</p>
-							</FormCheckLabel>
-						</FormCheck>
-						<FormCheck className="select-tab">
-							<FormCheckInput
-								checked={acceptFirstTerms.checked}
-								onChange={firstTermsHandler}
-							>
-							</FormCheckInput>
-							<FormCheckLabel>
-								<p className="time">9:00 AM - 12:00 PM</p>
-								<p className="price"><span>$50.00</span>/person</p>
-							</FormCheckLabel>
-						</FormCheck>
+						</FormCheck>)})}
+						
                     </div>
-					{/* <TimeSlot /> */}
+
 				</div>
 			),
 			// isError: !acceptFirstTerms.checked && acceptFirstTerms.touched,
-			isComplete: acceptFirstTerms.checked,
+			isComplete: checkedData?.checked,
 		},
 		{
 			label: 'Tell us about yourself',
@@ -396,8 +385,8 @@ const App1 = () => {
                         <div className="package-sub">
                             <img src={require('../../assets/images/t1.png')} alt="tour" />
                             <div>
-                                <p className="txt1">Doha: Private 4 Hours City Tour</p>
-                                <p className="txt3"><span>$50.00/</span>person</p>
+                                <p className="txt1">{packageData?.name}</p>
+                                <p className="txt3"><span>${packageData.price}/</span>person</p>
                             </div>
                         </div>
                     </div>
@@ -413,7 +402,9 @@ const App1 = () => {
 					<Form>
 						<FormGroup>
 							<Label>First Name</Label>
-							<Input type="text" placeholder="Robert" onTouchMove={acceptSecondTerms.touched} onChange={secondTermsHandler} />
+							<Input type="text" placeholder="Robert" 
+							onTouchMove={acceptSecondTerms.touched} onChange={secondTermsHandler} 
+							/>
 						</FormGroup>
 						<FormGroup>
 							<Label>Last Name</Label>
@@ -439,7 +430,7 @@ const App1 = () => {
 			),
 			clicked: () => secondStepAsyncFunc(),
 			isLoading: isSecondStepLoading,
-			// isError: !acceptSecondTerms.checked && acceptSecondTerms.touched,
+			isError: !acceptSecondTerms.checked && acceptSecondTerms.touched,
 			isComplete: acceptSecondTerms.checked,
 		},
 		{
@@ -497,8 +488,8 @@ const App1 = () => {
 					</div>
 				</div>
 			),
-			// isError: !acceptThirdTerms.checked && acceptThirdTerms.touched,
-			// isComplete: acceptThirdTerms.checked,
+			 isError: !acceptThirdTerms.checked && acceptThirdTerms.touched,
+			isComplete: acceptThirdTerms.checked,
 		},
 	];
 

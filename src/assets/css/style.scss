@@ -379,9 +379,9 @@ header .container-fluid {
 }
 .pick-right h1{
     font-weight: 700;
-    font-size: 54px;
-    line-height: 72px;
-    margin-bottom: 24px;
+    font-size: 32px;
+    line-height: 32px;
+    margin-bottom: 10px;
 }
 .pick-right .location{
     font-weight: 400;
@@ -1054,6 +1054,7 @@ header .container-fluid {
 .activity img{
     width: 100%;
     margin-bottom: 16px !important;
+    border-radius: 10px;
 }
 .activity .title{
     font-weight: 700;

@@ -15,8 +15,8 @@ const Activities = () => {
                         <div className="activity">
                             <img src={a.photoUrl} alt="place" />
                             <p className="title">{a.name}</p>
-                            <p className="company">By <a href='/vendor-page'>{localStorage.getItem("categoryName")}</a></p>
-                            <p className="my-cat">{a.description}</p>
+                            {/* <p className="company">By <a href='/vendor-page'>{localStorage.getItem("categoryName")}</a></p> */}
+                            <p className="my-cat">{a.packages.length >=1 &&  a.packages.length + " Packages available"} </p>
                         </div>
                     </Col>
                 )
