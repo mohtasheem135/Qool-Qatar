@@ -24,11 +24,21 @@ const Home = () => {
                 setData(data);
             }
         });
+        // (async () => {
+        //     const { data } =  await Axios.get(`/customer/home`);
+            
+        //     if (data.error) {
+        //         console.log("error");
+        //     } else {
+        //         setData(data);
+        //     }
 
-        let keysToRemove = ["packageCategoryId", "categoryName", "subcategories", "packageData"];
+        // })();
+        
+        let keysToRemove = ["packageCategoryId", "categoryName", "selectedPackageData", "packageData"];
 
         keysToRemove.forEach(k =>
-            localStorage.removeItem(k))
+            localStorage.removeItem(k));
     }, []);
 
 

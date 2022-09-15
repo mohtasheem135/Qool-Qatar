@@ -1,4 +1,4 @@
-import { getSlotsPackage } from '../api_utils';
+
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 const MainPage = React.lazy(()=> import('../components/main-page/main-page'));
@@ -6,12 +6,10 @@ const App1 = React.lazy(()=> import('../components/book-package/stepper'));
 
 const BookPackage = () => {
     const [data, setData] = useState();
+
     useEffect(() => {
         document.title = "Book Package - Qool Qatar";
-        (async () => {
-        const data = await getSlotsPackage(JSON.parse(localStorage.getItem('selectedPackageData'))?._id);
-        setData(!data.error && data.payload);
-        })();
+        setData(JSON.parse(localStorage.getItem("slotsAvailable")));
       }, []);
 
     return (
@@ -44,7 +42,7 @@ const BookPackage = () => {
                 <Container>
                     <Row>
                         <Col lg={12}>
-                            <App1 data={data} />
+                           <App1 data={data} />
                         </Col>
                     </Row>
                 </Container>

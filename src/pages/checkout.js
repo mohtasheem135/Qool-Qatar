@@ -9,46 +9,40 @@ const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 const Checkout = () => {
     const navigate = useNavigate();
 
-    const [data, setData] = useState('')
+    const [data, setData] = useState(JSON.parse(localStorage.getItem('selectedPackageData')));
+    const [productDetails, setProductDetails] = useState();
 
     useEffect(() => {
         document.title = "Checkout - Qool Qatar";
 
-        setData(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
-
-
-        console.log(localStorage.getItem('booking_FirstName'))
-        console.log(localStorage.getItem('booking_LastName'))
-        console.log(localStorage.getItem('booking_Email'))
-        console.log(localStorage.getItem('booking_Mobile'))
-        console.log(localStorage.getItem('booking_Guests'))
+        // setData(JSON.parse(localStorage.getItem('selectedPackageData')));
+        setProductDetails({
+            ...productDetails,
+            firstName: localStorage.getItem('booking_name'),
+            lastName: localStorage.getItem('booking_lastName'),
+            email: localStorage.getItem('booking_email'),
+            mobileNumber: localStorage.getItem('booking_mobileNumber'),
+            guests: localStorage.getItem('booking_guests'),
+            packageId: data._id,
+            packageName: data.name,
+            eventDate: data.eventDate,
+            eventAddress: data.address,
+            packageHours: data.hours,
+            photoUrl: data.photoUrl,
+            price: data.price,
+            tax: data.tax || 0
+        })
+    
 
     }, []);
 
 
-    const [product, setProduct] = useState({
-        name: data.name,
-        price: data.price,
-    })
 
-    const [productDetails, setProductDetails] = useState({
-        firstName: localStorage.getItem('booking_FirstName'),
-        lastName: localStorage.getItem('booking_LastName'),
-        email: localStorage.getItem('booking_Email'),
-        mobileNumber: localStorage.getItem('booking_Mobile'),
-        guests: localStorage.getItem('booking_Guests'),
-        packageId: 'packageID',
-        packageName: data.name,
-        eventDate: data.eventDate,
-        eventAddress: data.eventAddress,
-        packageHours: data.hours,
-        photoUrl: data.photoUrl
-    })
-
+   
     const makePayment = async token => {
         const body = {
-            token,
-            product
+            ...token,
+            ...productDetails
         }
 
         const headers = {
@@ -82,11 +76,12 @@ const Checkout = () => {
         formData.append('email', localStorage.getItem('booking_Email'))
         formData.append('mobileNumber', localStorage.getItem('booking_Mobile'))
         formData.append('guests', localStorage.getItem('booking_Guests'))
-        // formData.append('packageName', data.name)
-        // formData.append('eventDate', data.eventDate)
-        // formData.append('eventAddress', data.eventAddress)
-        // formData.append('packageHours', data.hours)
-        // formData.append('photoUrl', data.photoUrl)
+        formData.append('packageName', data.name)
+        formData.append('eventDate', data.eventDate)
+        formData.append('eventAddress', data.eventAddress)
+        formData.append('packageHours', data.hours)
+        formData.append('photoUrl', data.photoUrl)
+        formData.append('packageId', data.packageId)
 
         const { data } = await Axios.post('/payment/completed', formData);
         console.log(data)
@@ -101,11 +96,11 @@ const Checkout = () => {
     function jj() {
         const formData = new FormData();
         // formData.append('productDetails', productDetails)
-        formData.append('firstName', localStorage.getItem('booking_FirstName'))
-        formData.append('lastName', localStorage.getItem('booking_LastName'))
-        formData.append('email', localStorage.getItem('booking_Email'))
-        formData.append('mobileNumber', localStorage.getItem('booking_Mobile'))
-        formData.append('guests', localStorage.getItem('booking_Guests'))
+        formData.append('firstName', localStorage.getItem('booking_name'))
+        formData.append('lastName', localStorage.getItem('booking_lastName'))
+        formData.append('email', localStorage.getItem('booking_email'))
+        formData.append('mobileNumber', localStorage.getItem('booking_mobileNumber'))
+        formData.append('guests', localStorage.getItem('booking_guests'))
         // formData.append('packageName', data.name)
         // formData.append('eventDate', data.eventDate)
         // formData.append('eventAddress', data.address)
@@ -154,16 +149,16 @@ const Checkout = () => {
                                 <p className="item">{data.name}</p>
                                 <div className="sub-item">
                                     <p>
-                                        <span>Event ticket x 2</span>
-                                        <span>${data.price}.00</span>
+                                        <span>Event ticket x {parseInt(productDetails?.guests)}</span>
+                                        <span>QAR {productDetails?.price * parseInt(productDetails?.guests)}.00</span>
                                     </p>
                                     <p>
                                         <span>Tax</span>
-                                        <span>$0.00</span>
+                                        <span>QAR {productDetails?.tax * parseInt(productDetails?.guests)}</span>
                                     </p>
                                     <p className="total-price">
                                         <span>Total:</span>
-                                        <span>${product.price}</span>
+                                        <span>QAR {productDetails?.price * parseInt(productDetails?.guests) + (productDetails?.tax * parseInt(productDetails?.guests))}</span>
                                     </p>
                                 </div>
                             </div>
@@ -172,20 +167,20 @@ const Checkout = () => {
                     <Row className="about-info checkblock1">
                         <Col lg={2}>
                             <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> Sat, 1 Oct</p>
-                            <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> West Bay, Doha, Qatar</p>
-                            <p className="sub-info"><img src={require('../assets/images/Time-Circle.png')} alt="time" /> 6 Hours</p>
+                            <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> {data.address}</p>
+                            <p className="sub-info"><img src={require('../assets/images/Time-Circle.png')} alt="time" /> {data.hours} Hours</p>
                             <p className="sub-info"><img src={require('../assets/images/2User.png')} alt="user" /> All age group</p>
                         </Col>
                         <Col lg={10}>
                             <div className="booking-form sub-info1">
                                 <div>
                                     <p className="detail1">Your Details</p>
-                                    <p className="name">{localStorage.getItem('booking_FirstName')} {localStorage.getItem('booking_LastName')}</p>
-                                    <p className="contact">{localStorage.getItem('booking_Email')}</p>
-                                    <p className="contact">{localStorage.getItem('booking_Mobile')}</p>
+                                    <p className="name">{localStorage.getItem('')} {localStorage.getItem('booking_lastName')}</p>
+                                    <p className="contact">{localStorage.getItem('booking_email')}</p>
+                                    <p className="contact">{localStorage.getItem('booking_mobileNumber')}</p>
                                 </div>
                                 <div className="no-guest">
-                                    <p className="no1">{localStorage.getItem('booking_Guests')}</p>
+                                    <p className="no1">{localStorage.getItem('booking_guests')}</p>
                                     <p className="no2">No. of Guests</p>
                                 </div>
                             </div>
@@ -203,7 +198,8 @@ const Checkout = () => {
                                     image={JSON.parse(localStorage.getItem('Profile_Data')).payload.profilePic}
                                     stripeKey={process.env.REACT_APP_PUBLISABLE_KEY}
                                     token={makePayment}
-                                    amount={product.price * 100}
+                                    currency={"QAR"}
+                                    amount={productDetails?.price * parseInt(productDetails?.guests) + (productDetails?.tax * parseInt(productDetails?.guests))}
                                 >
                                     <button className='payment-btn' style={{ backgroundColor: '#A2195B', border: 'none', color: 'white' }}>Proceed to pay</button>
                                 </StripeCheckout>

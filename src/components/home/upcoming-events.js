@@ -79,7 +79,7 @@ const UpcomingEvents = ({ data }) => {
 
     const events = (event, param) => {
         console.log(param);
-        localStorage.setItem('upComingEvents_aboutEvent', JSON.stringify(param));
+        localStorage.setItem('selectedPackageData', JSON.stringify(param));
         
     }
 

@@ -10,7 +10,7 @@ const EditProfile = () => {
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [initialState, setInitialState] = useState({});
-    const { name, email, mobile, profilePic } = initialState;
+    const { name, email, mobile } = initialState;
 
     const [imgURL, setImgURL] = useState('')
 
@@ -62,8 +62,7 @@ const EditProfile = () => {
                 <div>
                     <div className="rounded-box">
                         <div className="outer">
-                            {/* {selectedImage === null ? <img className="outer" src={require('../../assets/images/Group2402.png')} alt="user" className="user" /> : */}
-                            {/* {selectedImage === null ? <img className="outer" src={initialState.profilePic} alt="user" /> : */}
+                          
                             {selectedImage === null ? <img className="outer" src={JSON.parse(localStorage.getItem('Profile_Data'))?.payload?.profilePic} alt="user" /> :
                                 <img className="outer" src={URL.createObjectURL(selectedImage)} alt="user" />
                             }
@@ -113,7 +112,6 @@ const EditProfile = () => {
                         onChange={handelInputChange}
                         type="text"
                         name="mobile"
-                        // value={JSON.parse(localStorage.getItem('Profile_Data')).payload.phoneNumber}
                         defaultValue={[JSON.parse(localStorage.getItem('Profile_Data')).payload?.phoneNumber?.slice(0, 3), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload?.phoneNumber?.slice(3,7), " ", JSON.parse(localStorage.getItem('Profile_Data')).payload?.phoneNumber?.slice(7)].join('')}
                         placeholder="mobile number"
                     />

@@ -5,10 +5,13 @@ import Axios from 'axios';
 import { faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../assets/css/Pages.css";
+import { Navigate } from 'react-router-dom';
 
+import { useNavigate } from 'react-router';
 
 
 const BestDeals = ({data}) => {
+    const navigate = useNavigate();
     const [responseData, setAddedData] = useState([]);
     var settings = {
         dots: false,
@@ -46,6 +49,12 @@ const BestDeals = ({data}) => {
         let newList = !data.error && responseData?.filter(addedId=> id !== addedId);
         setAddedData(newList);
     }
+
+    const selectedPackage = data => {
+        localStorage.setItem("selectedPackageData", JSON.stringify(data));
+        navigate("/package-page");
+        window.location.reload();
+    }
     
     const deals = (data) => {
         const {packageId: d} = data;
@@ -64,13 +73,14 @@ const BestDeals = ({data}) => {
                 <p className="pick-title">{d.name}</p>
                 <p className="pick-des">{d.address}</p>
                 <p>
-                    <span className="offer-txt">${d.originalPrice}</span> 
+                    <span className="offer-txt">QAR {d.originalPrice}</span> 
                     <span className="txt1">{d.discount && `(${d.discount}% Off)`}</span>
                 </p>
                 <p className="start-from">Starts from</p>
                 <div className="price-box">
-                    <p><span className="main-price">${d?.price}</span><span className="txt1">/Per Person</span></p>
-                    <a href='/profile-page?tab=myBookings'><Button>Book</Button></a>
+                    <p><span className="main-price">
+                    QAR {d?.price}</span><span className="txt1">/Per Person</span></p>
+                    <Button onClick={()=>selectedPackage(d)}>Book</Button>
                 </div>
             </>
         </div>

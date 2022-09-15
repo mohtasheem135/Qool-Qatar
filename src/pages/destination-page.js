@@ -81,6 +81,7 @@ const DestinationPage = () => {
             trackUserLocation: true,
             showUserHeading: true
         }));
+        return map;
     }
 const readMore  = () => {
     setDesc(data?.description);

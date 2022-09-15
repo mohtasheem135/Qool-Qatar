@@ -48,11 +48,14 @@ const places = (pckg) => {
                    <p className="pick-title">{p.name}</p>
                    <p className="pick-by"><a href='/vendor-page' >By {p.vendorName}</a></p>
                    <p className="pick-des">{p.address}</p>
-                   <p><span className="offer-txt">{p.offer}</span> <span className="txt1">{p.discount}</span></p>
+                   <p style={{width:"100%"}}>
+                        {p?.offer ? <span className="offer-txt">{ p.offer}</span> : <span className="offer-txt"></span> }
+                        {p?.discount ? <span className="txt1">{ p.discount}</span> : <span className="txt1"/>}
+                    </p>
                    <p className="start-from">Starts from</p>
                    <div className="price-box">
-                       <p><span className="main-price">{p.price}</span><span className="txt1">/Per Person</span></p>
-                       <a href='/package-page' onClick={()=>selectPackage(p)}><Button>Choose Package</Button></a>
+                       <p><span className="main-price">QAR {p.price}</span><span className="txt1">/Per Person</span></p>
+                       <a href='/package-page' onClick={()=>selectPackage(p)}><Button>Book Now</Button></a>
                        
                    </div>
                </div>

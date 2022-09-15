@@ -95,8 +95,19 @@ const OTPSignIN = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        navigate('/');
-        // navigate('/profile-page?tab=editProfile')
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let isBooked = params.get('booking');
+
+        let isSlot = params.get('slot');
+
+        if(isBooked && isSlot) {
+          navigate("/book-package");
+        } else if(isBooked)  {
+          navigate("/booking");
+        } else {
+          navigate('/');
+        }
         window.location.reload();
       });
 
@@ -197,8 +208,19 @@ const OTPSignIN = () => {
 
         // console.log(JSON.parse(localStorage.getItem('Home_Data')))
         // navigate('/profile-page?tab=editProfile')
-        navigate('/')
-        window.location.reload()
+        let search = window.location.search;
+        let params = new URLSearchParams(search);
+        let isBooked = params.get('booking');
+        let isSlot = params.get('slot');
+
+        if(isBooked && isSlot) {
+          navigate("/book-package");
+        } else if(isBooked)  {
+          navigate("/booking");
+        } else {
+          navigate('/');
+        }
+        window.location.reload();
         // The data.payload will be stored in context or localstorage
       }
 

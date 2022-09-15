@@ -4,43 +4,48 @@ import { useNavigate } from 'react-router';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import "../assets/css/Pages.css"
 import mapboxGl from 'mapbox-gl';
+import { getSlotsPackage } from '../api_utils';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 const MainPage = React.lazy(() => import('../components/main-page/main-page'));
 
 const AboutEvent = () => {
 
-
-
     const navigate = useNavigate();
     const [data, setData] = useState('');
-    const [url, setUrl] = useState('/signIn')
+    const [url, setUrl] = useState();
 
     useEffect(() => {
         document.title = "About Event - Qool Qatar";
+        (async () => {
+            const data = await getSlotsPackage(JSON.parse(localStorage.getItem('selectedPackageData'))?._id);
+        
+            localStorage.setItem("slotsAvailable", JSON.stringify(!data.error && data.payload));
+            setData(JSON.parse(localStorage.getItem('selectedPackageData')))
+            if(JSON.parse(localStorage.getItem('Profile_Data')).error) {
+                setUrl(`/signIn/?booking=true&slot=${data?.payload?.times?.length}`);
+            }else if(data.payload?.times.length > 0) {
+                setUrl('/book-package');
+            }else{
+                setUrl('/booking');
+            }
+        })();
 
-        setData(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')))
 
-        setUrl('/booking');
-        // if(JSON.parse(localStorage.getItem('Profile_Data')).error) {
-        //     setUrl('/signIn')
-        // }else {
-        //     setUrl('/booking')
-        // }
 
         mapboxGl.accessToken = 'pk.eyJ1IjoibWVhemFkMTM1MCIsImEiOiJjbDVwbGNncTIwYmFpM2tuMnY3eHBlM2VhIn0._eM88ThriAOOttj-IY7OGQ';
         const map = new mapboxGl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v11', // style URL
-            center: [JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')).location.coordinates[0], JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')).location.coordinates[1]], // starting position [lng, lat]
+            center: [JSON.parse(localStorage.getItem('selectedPackageData')).location.coordinates[0], JSON.parse(localStorage.getItem('selectedPackageData')).location.coordinates[1]], // starting position [lng, lat]
             zoom: 13, // starting zoom
             projection: 'globe' // display the map as a 3D globe
         }, { attributionControl: false }
         )
 
         const marker = new mapboxGl.Marker({ color: "#A2195B", draggable: false })
-            .setLngLat([JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')).location.coordinates[0], JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')).location.coordinates[1]])
-            .setPopup(new mapboxGl.Popup().setHTML(JSON.parse(localStorage.getItem('upComingEvents_aboutEvent')).name))
+            .setLngLat([JSON.parse(localStorage.getItem('selectedPackageData')).location.coordinates[0], JSON.parse(localStorage.getItem('selectedPackageData')).location.coordinates[1]])
+            .setPopup(new mapboxGl.Popup().setHTML(JSON.parse(localStorage.getItem('selectedPackageData')).name))
             .addTo(map);
         marker.togglePopup();
         marker.setRotation(10);
@@ -64,7 +69,7 @@ const AboutEvent = () => {
 
 
     const events = (event, param) => {
-        console.log(param);
+   
         localStorage.setItem('vendorOage_aboutEvent', param);
 
     }
@@ -93,15 +98,14 @@ const AboutEvent = () => {
                         <Col lg={4}>
                             <div className="pick-left">
                                 {/* <img src={require('../assets/images/event1.png')} alt="big" /> */}
-                                <img src={data?.photos && data?.photos[0]} alt="big"  width="450" height="200"/>
-                                {/* <ul className="img-list">
-                                    <li><img src={require('../assets/images/Rectangle38.png')} alt="small" /></li>
-                                    <li><img src={require('../assets/images/Rectangle39.png')} alt="small" /></li>
-                                    <li><img src={require('../assets/images/Rectangle40.png')} alt="small" /></li>
-                                    <li><img src={require('../assets/images/Rectangle41.png')} alt="small" /></li>
-                                    <li><img src={require('../assets/images/Rectangle42.png')} alt="small" /></li>
-                                    <li><img src={require('../assets/images/Rectangle43.png')} alt="small" /></li>
-                                </ul> */}
+                                <img src={data?.photos && data?.photos[0]} alt="big"  width="450" height="450" style={{borderRadius:"20px"}}/>
+                                <ul className="img-list">
+                                   
+                                    {data?.photos?.map((id) => 
+                                       <li><img src={id} alt="small"/></li> 
+                                    )}
+
+                                </ul>
                             </div>
                         </Col>
                         <Col lg={8}>
@@ -109,7 +113,7 @@ const AboutEvent = () => {
                                 <h1>{data.name}</h1>
                                 <Row>
                                     <Col lg={6}>
-                                        <p className="price-with"><span>${data.price}.00</span>/person</p>
+                                        <p className="price-with"><span>QAR {data.price}.00</span>/person</p>
                                         {/* <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> Sat, 1 Oct</p> */}
                                         <p className="sub-info"><img src={require('../assets/images/Calendar.png')} alt="calendar" /> {getTime(data?.eventStartDate)} - {getTime(data?.eventEndDate)}</p>
                                         <p className="sub-info"><img src={require('../assets/images/Location.png')} alt="location" /> {data.address}</p>

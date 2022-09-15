@@ -36,8 +36,6 @@ const App = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-
-    console.log(localStorage.getItem('@auth_token'))
     Axios.defaults.baseURL = BASE_URL;
     Axios.defaults.headers.common = { Authorization: `Bearer ${localStorage.getItem('@auth_token')}` }
 
@@ -61,7 +59,8 @@ const App = () => {
     return (
       <Router>
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route  path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
           <Route path="/lightining-deals" element={<LightiningDeals />} />
           <Route path="/destination-page" element={<DestinationPage />} />
           <Route path='/profile-page' element={<ProfilePage />} />
