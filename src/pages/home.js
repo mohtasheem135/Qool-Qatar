@@ -24,18 +24,8 @@ const Home = () => {
                 setData(data);
             }
         });
-        // (async () => {
-        //     const { data } =  await Axios.get(`/customer/home`);
-            
-        //     if (data.error) {
-        //         console.log("error");
-        //     } else {
-        //         setData(data);
-        //     }
-
-        // })();
         
-        let keysToRemove = ["packageCategoryId", "categoryName", "selectedPackageData", "packageData"];
+        let keysToRemove = ["packageCategoryId", "categoryName", "selectedPackageData", "packageData", "slotsAvailable"];
 
         keysToRemove.forEach(k =>
             localStorage.removeItem(k));
@@ -44,8 +34,7 @@ const Home = () => {
 
 
     return (
-        <MainPage data={data?.payload?.timerDeal}>
-            {/* <h1>JSON.parse(localStorage.getItem('Home_Data')).data.message</h1> */}
+        <MainPage data={data?.payload}>
             <ExperienceWorld />
             <LetExplore data={data} />
             <TopPicks data={data} />

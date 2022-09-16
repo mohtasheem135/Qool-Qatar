@@ -11,11 +11,7 @@ import {useNavigate} from "react-router-dom";
 const Header = ({data}) => {
 
     const navigate = useNavigate();
-    useEffect(() => {
 
-        console.log("header")
-        console.log(JSON.parse(localStorage.getItem('Profile_Data')))
-    }, []);
 
     const renderer = ({ hours, minutes, seconds, completed }) => {
         if (completed) {
@@ -29,20 +25,22 @@ const Header = ({data}) => {
 
       const goToLightningDeals = () => {
         navigate("/lightining-deals");
+        window.location.reload();
+        localStorage.setItem("dayDeal", JSON.stringify(data.dayDeal));
       }
       
 
-    // localStorage.getItem(JSON.parse(localStorage.getItem('Profile_Data')))
-
-    // phoneNumber
 
     const handleClick = (e) => {
         // e.preventDefault()
-        localStorage.removeItem('otp_signIn')
-        localStorage.removeItem('userID')
-        localStorage.setItem('@auth_token', null);
-        // window.location.reload()
+
+        let keysToRemove = ["packageCategoryId", "categoryName", "selectedPackageData", "packageData", 'otp_signIn', "userID", "@auth_token"];
+
+        keysToRemove.forEach(k =>
+            localStorage.removeItem(k));
+        window.location.reload()
     }
+
 
     return (
         <Fragment>
@@ -154,7 +152,7 @@ const Header = ({data}) => {
                                             JSON.parse(localStorage.getItem('Profile_Data')).error ?
                                                 null
                                                 :
-                                                <a href='/' onClick={handleClick} className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/logOut.png')} alt="logOut" /><p className='mobile-nav-text'>Log Out</p></a>
+                                                <a onClick={handleClick} className="mobile-nav-icon"><img className="mobile-icon-img" src={require('../../assets/images/logOut.png')} alt="logOut" /><p className='mobile-nav-text'>Log Out</p></a>
                                         }
                                         {/* <a href='/' style={{fontSize: "16px", color: '#A2195B', fontWeight: '700' }} onClick={handleClick} >Log Out</a> */}
                                     </Nav>
@@ -182,19 +180,17 @@ const Header = ({data}) => {
                         </Container>
                     </Navbar>
                 ))}
-                <div className='jjj' >
-                    <h1>Hellooo</h1>
-                </div>
+        
                 <Container fluid>
                     <Row>
                         <Col lg={12}>
                             <div className="offer-line" onClick={goToLightningDeals}>
                             
                                
-                                    <span className="offer1"> <Countdown date={"2022-08-31T12:16:37.301Z" || data?.endDate}   renderer={renderer}>
+                                    <span className="offer1"> <Countdown date={"2022-09-31T12:16:37.301Z" || data?.timerDeal?.endDate}  renderer={renderer}>
 
 </Countdown></span>
-                                    <span className="offer2">Get QAR {data?.discount}% off</span>
+                                    <span className="offer2">Get QAR {data?.timerDeal?.discount}% off</span>
                                     <span><FontAwesomeIcon icon={faArrowRightLong} /></span>
                           
                             </div>

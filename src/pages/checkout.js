@@ -88,7 +88,7 @@ const Checkout = () => {
         if (data.error != true) {
             navigate('/booking-after-payment')
             window.location.reload();
-            console.log(data)
+           
         }
 
     }

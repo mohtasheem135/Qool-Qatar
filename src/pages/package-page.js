@@ -15,8 +15,9 @@ const PackagePage = () => {
             // setData(!data.error && data.payload);
 
             localStorage.setItem("slotsAvailable", JSON.stringify(!data.error && data.payload));
-
-            if(data.payload?.times.length > 0) {
+            if(JSON.parse(localStorage.getItem('Profile_Data')).error) {
+                setUrl(`/signIn/?booking=true&slot=${data?.payload?.times?.length}`);
+            }else if(data.payload?.times.length > 0) {
                 setUrl("/book-package");
             } else {
                 setUrl(
