@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkqool_qatar=self.webpackChunkqool_qatar||[]).push([[5751],{5751:function(e,r,s){s.r(r);s(2791);var n=s(184);r.default=function(){return(0,n.jsxs)(n.Fragment,{children:[(0,n.jsx)("div",{children:"termsOfUse"}),(0,n.jsx)("div",{children:"kaise ho"}),";"]})}}}]);
+//# sourceMappingURL=5751.5d15957f.chunk.js.map

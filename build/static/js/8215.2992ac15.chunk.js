@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkqool_qatar=self.webpackChunkqool_qatar||[]).push([[8215],{8215:function(e,l,r){r.r(l);r(2791);var s=r(9051),i=r(184);l.default=function(){return(0,i.jsx)("section",{className:"experience-world",children:(0,i.jsx)(s.W2,{fluid:!0,children:(0,i.jsx)(s.X2,{children:(0,i.jsx)(s.JX,{lg:12,children:(0,i.jsxs)("div",{className:"txt-box",children:[(0,i.jsx)("h1",{children:"Experience a World Beyond"}),(0,i.jsx)("a",{href:"/list-of-activities",children:(0,i.jsx)(s.zx,{children:"Explore"})})]})})})})})}}}]);
-//# sourceMappingURL=8215.2992ac15.chunk.js.map
